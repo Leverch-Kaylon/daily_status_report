@@ -2,16 +2,13 @@ package com.m3support.demo.controller;
 
 import java.util.List;
 
+import com.m3support.demo.dtos.*;
 import com.m3support.demo.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.m3support.demo.dtos.AccountDto;
-import com.m3support.demo.dtos.AccountIdDto;
-import com.m3support.demo.dtos.EmployeeDto;
-import com.m3support.demo.dtos.ProjectDto;
 import com.m3support.demo.entity.Account;
 import com.m3support.demo.entity.Project;
 import com.m3support.demo.entity.Report;
@@ -100,7 +97,7 @@ public class AdminController {
 
 	// Method that retrieves employee details by the employee email_id .
 	@GetMapping("/admin/employeeDashboard/{emp_email}/")
-	public List<EmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
+	public List<FomerEmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
 
 		return employeeService.getEmployeeDashboard(emp_email.toLowerCase());
 
@@ -122,7 +119,7 @@ public class AdminController {
 	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(AD integration or something))
 	@PostMapping("/admin/employee")
 	public ResponseEntity<EmployeeDto> addEmployee(@RequestBody Employee employee) {
-		employeeService.addEmployee(employee);
-		return new ResponseEntity<EmployeeDto>(HttpStatus.OK);
+		return employeeService.addEmployee(employee);
+		//return new ResponseEntity<EmployeeDto>(HttpStatus.OK);
 	}
 }
