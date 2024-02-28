@@ -53,25 +53,25 @@ public class ManagerController {
 	
 	
 	//Method that returns all the accounts under which a logged in manager has projects
-	@GetMapping("/manager/viewAccounts/{reporting_manager}")
-	public List<Account> getAccountsUnderManager(@PathVariable int reporting_manager){
-		return accountService.getAccountsFromManager(reporting_manager);
-	}	
+//	@GetMapping("/manager/viewAccounts/{reporting_manager}")
+//	public List<Account> getAccountsUnderManager(@PathVariable int reporting_manager){
+//		return accountService.getAccountsFromManager(reporting_manager);
+//	}
 	
 	//Method that returns all projects under a specific manager from an account
-	@GetMapping("/manager/viewProjectsUnderManager/{reporting_manager}/{account_id}")
-	public List<Project> getProjectsUnderManager(@PathVariable int reporting_manager, @PathVariable int account_id){
-		return projectService.getProjectsUnderManager(reporting_manager, account_id);
-	}
+//	@GetMapping("/manager/viewProjectsUnderManager/{reporting_manager}/{account_id}")
+//	public List<Project> getProjectsUnderManager(@PathVariable int reporting_manager, @PathVariable int account_id){
+//		return projectService.getProjectsUnderManager(reporting_manager, account_id);
+//	}
 	
 
 	// Method that returns all projects under an account.
-	@GetMapping("/manager/viewAllProjectsUnderAccount/{account_id}")
-	public List<Project> getAllProjectsUnderAccount(@PathVariable int account_id) {
-
-		return projectService.getProjectsUnderAccount(account_id);
-
-	}
+//	@GetMapping("/manager/viewAllProjectsUnderAccount/{account_id}")
+//	public List<Project> getAllProjectsUnderAccount(@PathVariable int account_id) {
+//
+//		return projectService.getProjectsUnderAccount(account_id);
+//
+//	}
 	
 	// Method that returns all employees DSR under specific project.
 	@GetMapping("/manager/viewEmployeesUnderProject/{project_id}")
@@ -82,10 +82,10 @@ public class ManagerController {
 	}
 	
 	// Method returns all the manager's name's,id's and employee id's
-	@GetMapping("/manager/allmanagers")
-	public List<ManagerDto> getManagers() {
-		return accountService.getManagers();
-	}
+//	@GetMapping("/manager/allmanagers")
+//	public List<ManagerDto> getManagers() {
+//		return accountService.getManagers();
+//	}
 
 	// Method that returns all employees DSR under specific project for
 	// TODAY(Current date in system)

@@ -1,110 +1,102 @@
 package com.m3support.demo.dtos;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.sql.Date;
 
 public class AccountDto {
-    private int AccountId;
-    private String AccountName;
-    private String ModifiedBy;
-    private Date ModifiedOn;
-    private String CreatedBy;
-    private Date CreatedOn;
-    private Boolean deleted;
-    private String ReportingManager;
-    private long ProjectsCount;
-    private int ReportingManagerId;
 
-    public AccountDto(int accountId, String accountName, String modifiedBy, Date modifiedOn, String createdBy,
-            Date createdOn, Boolean deleted, long projectsCount, String reportingManager, int reportingManagerId) {
-        this.AccountId = accountId;
-        this.AccountName = accountName;
-        this.ModifiedBy = modifiedBy;
-        this.ModifiedOn = modifiedOn;
-        this.ReportingManager = reportingManager;
-        this.ProjectsCount = projectsCount;
-        this.CreatedBy = createdBy;
-        this.CreatedOn = createdOn;
+    private int account_id;
+    private String account_desc;
+    private boolean deleted = false;
+
+    private java.sql.Date created_on;
+
+    private String created_by;
+
+    private java.sql.Date modified_on;
+
+    private String modified_by;
+
+    // Account default constructor
+    public AccountDto() {
+
+    }
+
+    public AccountDto(int account_id, String account_desc, boolean deleted, java.sql.Date created_on, String created_by,
+                   java.sql.Date modified_on, String modified_by) {
+        this.account_id = account_id;
+        this.account_desc = account_desc;
         this.deleted = deleted;
-        this.ReportingManagerId = reportingManagerId;
+        this.created_on = created_on;
+        this.created_by = created_by;
+        this.modified_on = modified_on;
+        this.modified_by = modified_by;
     }
 
-    public int getReportingManagerId() {
-        return ReportingManagerId;
+    public int getAccount_id() {
+        return account_id;
     }
 
-    public void setReportingManagerId(int reportingManagerId) {
-        this.ReportingManagerId = reportingManagerId;
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
     }
 
-    public Boolean getDeleted() {
+    public String getAccount_desc() {
+        return account_desc;
+    }
+
+    public void setAccount_desc(String account_desc) {
+        this.account_desc = account_desc;
+    }
+
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
-    public Date getCreatedOn() {
-        return CreatedOn;
+    public java.sql.Date getCreatedOn() {
+        return created_on;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.CreatedOn = createdOn;
+    public void setCreatedOn(java.sql.Date created_on) {
+        this.created_on = created_on;
     }
 
     public String getCreatedBy() {
-        return CreatedBy;
+        return created_by;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.CreatedBy = createdBy;
+    public void setCreatedBy(String created_by) {
+        this.created_by = created_by;
     }
 
-    public long getProjectsCount() {
-        return ProjectsCount;
+    public java.sql.Date getModifiedOn() {
+        return modified_on;
     }
 
-    public void setProjectsCount(long projectsCount) {
-        this.ProjectsCount = projectsCount;
-    }
-
-    public String getReportingManager() {
-        return ReportingManager;
-    }
-
-    public void setReportingManager(String reportingManager) {
-        this.ReportingManager = reportingManager;
-    }
-
-    public Date getModifiedOn() {
-        return ModifiedOn;
-    }
-
-    public void setModifiedOn(Date modifiedOn) {
-        this.ModifiedOn = modifiedOn;
+    public void setModifiedOn(Date modified_on) {
+        this.modified_on = modified_on;
     }
 
     public String getModifiedBy() {
-        return ModifiedBy;
+        return modified_by;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.ModifiedBy = modifiedBy;
+    public void setModifiedBy(String modified_by) {
+        this.modified_by = modified_by;
     }
 
-    public String getAccountName() {
-        return AccountName;
+    @Override
+    public String toString() {
+        return "Account [account_id=" + account_id + ", account_desc=" + account_desc + ", deleted=" + deleted
+                + ", 						created_on=" + created_on + ", created_by=" + created_by + ", modified_on="
+                + modified_on + ", modified_by=" + modified_by + "]";
     }
 
-    public void setAccountName(String accountName) {
-        this.AccountName = accountName;
-    }
-
-    public int getAccountId() {
-        return AccountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.AccountId = accountId;
-    }
 }

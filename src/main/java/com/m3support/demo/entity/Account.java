@@ -25,31 +25,31 @@ public class Account {
 	private boolean deleted = false;
 
 	@Column(name = "created_on")
-	private Date createdOn;
+	private Date created_on;
 
 	@Column(name = "created_by")
-	private String createdBy;
+	private String created_by;
 
 	@Column(name = "modified_on")
-	private Date modifiedOn;
+	private Date modified_on;
 
 	@Column(name = "modified_by")
-	private String modifiedBy;
+	private String modified_by;
 
 	// Account default constructor
 	public Account() {
 
 	}
 
-	public Account(int account_id, String account_desc, boolean deleted, Date createdOn, String createdBy,
-			Date modifiedOn, String modifiedBy) {
+	public Account(int account_id, String account_desc, boolean deleted, Date created_on, String created_by,
+			Date modified_on, String modified_by) {
 		this.account_id = account_id;
 		this.account_desc = account_desc;
 		this.deleted = deleted;
-		this.createdOn = createdOn;
-		this.createdBy = createdBy;
-		this.modifiedOn = modifiedOn;
-		this.modifiedBy = modifiedBy;
+		this.created_on = created_on;
+		this.created_by = created_by;
+		this.modified_on = modified_on;
+		this.modified_by = modified_by;
 	}
 
 	public int getAccount_id() {
@@ -77,42 +77,42 @@ public class Account {
 	}
 
 	public Date getCreatedOn() {
-		return createdOn;
+		return created_on;
 	}
 
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setCreatedOn(Date created_on) {
+		this.created_on = created_on;
 	}
 
 	public String getCreatedBy() {
-		return createdBy;
+		return created_by;
 	}
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setCreatedBy(String created_by) {
+		this.created_by = created_by;
 	}
 
 	public Date getModifiedOn() {
-		return modifiedOn;
+		return modified_on;
 	}
 
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
+	public void setModifiedOn(Date modified_on) {
+		this.modified_on = modified_on;
 	}
 
 	public String getModifiedBy() {
-		return modifiedBy;
+		return modified_by;
 	}
 
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
+	public void setModifiedBy(String modified_by) {
+		this.modified_by = modified_by;
 	}
 
 	@Override
 	public String toString() {
 		return "Account [account_id=" + account_id + ", account_desc=" + account_desc + ", deleted=" + deleted
-				+ ", 						createdOn=" + createdOn + ", createdBy=" + createdBy + ", modifiedOn="
-				+ modifiedOn + ", modifiedBy=" + modifiedBy + "]";
+				+ ", 						created_on=" + created_on + ", created_by=" + created_by + ", modified_on="
+				+ modified_on + ", modified_by=" + modified_by + "]";
 	}
 
 }

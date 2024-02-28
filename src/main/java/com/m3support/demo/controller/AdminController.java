@@ -37,26 +37,26 @@ public class AdminController {
 
 	// Method used to create an account.
 	@PostMapping("/admin/createAccount")
-	public void createAccount(@RequestBody Account account) {
+	public ResponseEntity<AccountDto> createAccount(@RequestBody Account account) {
 
-		this.accountService.createAccount(account);
-		;
+		return this.accountService.createAccount(account);
+
 
 	}
 
 	// Method used to update an account
-	@PutMapping("/admin/updateAccount")
-	public void updateAccount(@RequestBody Account account) {
-		this.accountService.updateAccount(account);
-	}
-
-	// Method to view all accounts.
-	@GetMapping("/admin/viewAccounts")
-	public List<Account> getAllAccounts() {
-
-		return accountService.getAllAccounts();
-
-	}
+//	@PutMapping("/admin/updateAccount")
+//	public void updateAccount(@RequestBody Account account) {
+//		this.accountService.updateAccount(account);
+//	}
+//
+//	// Method to view all accounts.
+//	@GetMapping("/admin/viewAccounts")
+//	public List<Account> getAllAccounts() {
+//
+//		return accountService.getAllAccounts();
+//
+//	}
 
 	// Method to view all employees submitted reports.
 	@GetMapping("/admin/viewReports")
@@ -74,26 +74,26 @@ public class AdminController {
 	}
 
 	// Method used to retrieve account dashboard details.
-	@GetMapping("/admin/accountsDashboard")
-	public List<AccountDto> accountsDashboard() {
-
-		return accountService.getAccountsDashboard();
-
-	}
+//	@GetMapping("/admin/accountsDashboard")
+//	public List<AccountDto> accountsDashboard() {
+//
+//		return accountService.getAccountsDashboard();
+//
+//	}
 
 	// Method used to retrieve project dashboard details
-	@GetMapping("/admin/projectsDashboard")
-	public List<ProjectDto> getProjectsDashboard() {
-
-		return this.projectService.getProjectsDashboard();
-
-	}
+//	@GetMapping("/admin/projectsDashboard")
+//	public List<ProjectDto> getProjectsDashboard() {
+//
+//		return this.projectService.getProjectsDashboard();
+//
+//	}
 
 	// Method used to retrieve account identifier details
-	@GetMapping("/admin/accountIdentifiers")
-	public List<AccountIdDto> accountIdentifiers() {
-		return accountService.getAccountsForProjects();
-	}
+//	@GetMapping("/admin/accountIdentifiers")
+//	public List<AccountIdDto> accountIdentifiers() {
+//		return accountService.getAccountsForProjects();
+//	}
 
 	// Method that retrieves employee details by the employee email_id .
 	@GetMapping("/admin/employeeDashboard/{emp_email}/")
@@ -103,17 +103,17 @@ public class AdminController {
 
 	}
 
-	@PutMapping("/admin/updateProject/{accountId}/{projectId}")
-	public void updateProject(@PathVariable("accountId") int accountId, @PathVariable("projectId") int projectId,
-			@RequestBody Project project) {
-		this.projectService.updateProject(accountId, projectId, project);
-	}
+//	@PutMapping("/admin/updateProject/{accountId}/{projectId}")
+//	public void updateProject(@PathVariable("accountId") int accountId, @PathVariable("projectId") int projectId,
+//			@RequestBody Project project) {
+//		this.projectService.updateProject(accountId, projectId, project);
+//	}
 
 	//All projects are to be assigned/created under an account
 	//The request accepts query parameter which contains ID to the reporting manager and ID to account
 	@PostMapping("/admin/createproject")
-	public void createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
-		this.projectService.createProject(accountId, project, reportingManagerID);
+	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
+		return this.projectService.createProject(accountId, project, reportingManagerID);
 	}
 
 	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(AD integration or something))
