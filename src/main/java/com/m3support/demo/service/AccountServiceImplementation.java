@@ -1,7 +1,10 @@
 package com.m3support.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.m3support.demo.dtos.EmployeeDto;
+import com.m3support.demo.entity.Employee;
 import com.m3support.demo.mapping.MappingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,11 +37,16 @@ public class AccountServiceImplementation implements AccountService {
 //	}
 
 	// Method to retrieve all accounts.
-//	@Override
-//	public List<Account> getAllAccounts() {
-//
-//		return accountRepository.findAll();
-//	}
+	@Override
+	public ResponseEntity<List<AccountDto>> getAllAccounts() {
+
+		List<AccountDto> dtoAccounts = new ArrayList<>();
+		for(Account accounts :accountRepository.findAll()){
+			dtoAccounts.add(MappingMapper.INSTANCE.toAccountDTO(accounts));
+		}
+
+	return new ResponseEntity<List<AccountDto>>(dtoAccounts,HttpStatus.OK);
+	}
 
 	// Method used to retrieve account dashboard details.
 //	@Override

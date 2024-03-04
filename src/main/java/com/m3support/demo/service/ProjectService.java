@@ -10,16 +10,16 @@ import org.springframework.http.ResponseEntity;
 public interface ProjectService {
 	
 	List<Project> getAllProjects();
-	
-	//List<Project> getProjectsUnderAccount(int account_id);
+
+	ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(int account_id);
 	
 	//List<ProjectDto> getProjectsDashboard();
 
 	ResponseEntity<ProjectDto> createProject(int accountId, Project project, int reportingManagerID);
 	
 	//void updateProject(int accountId, int projectId, Project project);
-	
-//	List<Project> getProjectsUnderManager(int reporting_manager, int account_id);
+
+	ResponseEntity<List<ProjectDto>>  getProjectsUnderManager(int reporting_manager);
 
 
 }

@@ -1,5 +1,6 @@
 package com.m3support.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.m3support.demo.dtos.EmployeeDto;
@@ -33,6 +34,17 @@ public class EmployeeServiceImplementation implements EmployeeService {
 		//Convert To DTO here and return DTO //how to remove some components dynamically
 		EmployeeDto edited = MappingMapper.INSTANCE.toDto(employeeRepository.save(employee));
 		return new ResponseEntity<>(edited, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<List<EmployeeDto>> getAllEmloyees() {
+
+		List<EmployeeDto> dtoEmployees = new ArrayList<>();
+		for(Employee employee :employeeRepository.findAll()){
+			dtoEmployees.add(MappingMapper.INSTANCE.toDto(employee));
+		}
+
+		return new ResponseEntity<List<EmployeeDto>>(dtoEmployees,HttpStatus.OK);
 	}
 
 

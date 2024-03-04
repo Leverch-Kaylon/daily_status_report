@@ -1,5 +1,6 @@
 package com.m3support.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,15 @@ public class ProjectServiceImplementation implements ProjectService{
 		
 	}
 
+	@Override
+	public ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(int account_id) {
+		List<ProjectDto> dtoProjects = new ArrayList<>();
+		for(Project projects :	projectRepository.findProjectsUnderAccounts(account_id)){
+			dtoProjects.add(MappingMapper.INSTANCE.toProjectDTOUnderAccount(projects));
+		}
+		return new ResponseEntity<List<ProjectDto>>(dtoProjects,HttpStatus.OK);
+	}
+
 //	@Override
 //	public List<Project> getProjectsUnderAccount(int account_id) {
 //
@@ -61,6 +71,15 @@ public class ProjectServiceImplementation implements ProjectService{
 		project.setReportingManager_master(reportingManager.get());
 
 		return new ResponseEntity<ProjectDto>(MappingMapper.INSTANCE.toProjectDTO(this.projectRepository.save(project)), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<List<ProjectDto>> getProjectsUnderManager(int reporting_manager) {
+		List<ProjectDto> dtoProjects = new ArrayList<>();
+		for(Project projects :	projectRepository.getProjectsUnderManager(reporting_manager)){
+			dtoProjects.add(MappingMapper.INSTANCE.toProjectDTOUnderAccount(projects));
+		}
+		return new ResponseEntity<List<ProjectDto>>(dtoProjects,HttpStatus.OK);
 	}
 
 //	@Override

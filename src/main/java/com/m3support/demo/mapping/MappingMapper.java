@@ -30,6 +30,15 @@ public interface MappingMapper {
     @Mapping(target = "deleted", ignore = true)
     ProjectDto toProjectDTO(Project project);
 
+    @Mapping(target = "modified_by", ignore = true)
+    @Mapping(target = "modified_on", ignore = true)
+    @Mapping(target = "created_by", ignore = true)
+    @Mapping(target = "created_on", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "account_master",ignore = true)
+    @Mapping(target = "reporting_manager",ignore = true)
+    ProjectDto toProjectDTOUnderAccount(Project project);
+
     @Mapping(target = "modifiedOn", ignore = true)
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "createdBy", ignore = true)

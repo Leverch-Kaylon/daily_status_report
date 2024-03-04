@@ -12,8 +12,8 @@ import com.m3support.demo.entity.Project;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
-//	@Query("SELECT proj FROM Project proj WHERE proj.account_master.account_id =?1 ")
-//List<Project> findProjectsUnderAccounts(int account_id);
+@Query("SELECT proj FROM Project proj WHERE proj.account_master.account_id =?1 ")
+List<Project> findProjectsUnderAccounts(int account_id);
 //
 //	@Query("SELECT new com.m3support.demo.dtos.ProjectDto(p.project_id, p.project_desc,"
 //			+ " a.account_id, a.account_desc,"
@@ -21,7 +21,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 //			+ "FROM Project p INNER JOIN p.account_master a ON p.account_master.account_id = a.account_id ")
 //	List<ProjectDto> getProjectsDashboard();
 //
-//	@Query("SELECT proj FROM Project proj WHERE proj.reporting_manager.emp_id = ?1 AND proj.account_master.account_id = ?2")
-//	List<Project> getProjectsUnderManager(int reporting_manager, int account_id);
+	@Query("SELECT proj FROM Project proj WHERE proj.reporting_manager.emp_id = ?1")
+	List<Project> getProjectsUnderManager(int reporting_manager);
 //
 }

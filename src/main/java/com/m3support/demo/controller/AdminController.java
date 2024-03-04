@@ -50,13 +50,13 @@ public class AdminController {
 //		this.accountService.updateAccount(account);
 //	}
 //
-//	// Method to view all accounts.
-//	@GetMapping("/admin/viewAccounts")
-//	public List<Account> getAllAccounts() {
-//
-//		return accountService.getAllAccounts();
-//
-//	}
+	// Method to view all accounts.
+	@GetMapping("/admin/viewAccounts")
+	public ResponseEntity<List<AccountDto>> getAllAccounts() {
+
+		return accountService.getAllAccounts();
+
+	}
 
 	// Method to view all employees submitted reports.
 	@GetMapping("/admin/viewReports")
@@ -122,4 +122,25 @@ public class AdminController {
 		return employeeService.addEmployee(employee);
 		//return new ResponseEntity<EmployeeDto>(HttpStatus.OK);
 	}
+
+	@GetMapping("/admin/employees")
+	public ResponseEntity<List<EmployeeDto>> getAllemployees(){
+		return employeeService.getAllEmloyees();
+	}
+
+	//Don't really need endpoint for all projects?
+
+	//Get projects Under account, query parameter to filer on account
+	@GetMapping("/admin/account/projects")
+	public ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(@RequestParam(name = "account",required = false) int accountID){
+	return projectService.getProjectsUnderAccount(accountID);
+	}
+
+	//Get projects under specific reporting manager
+	//Cannot have the same mapping
+	@GetMapping("/admin/manager/projects")
+	public ResponseEntity<List<ProjectDto>> getProjectsUnderPM(@RequestParam(name = "manager",required = false) int managerID){
+		return projectService.getProjectsUnderManager(managerID);
+	}
+
 }

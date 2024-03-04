@@ -13,5 +13,7 @@ public interface EmployeeService {
 
    ResponseEntity<EmployeeDto> addEmployee(Employee employee);
 
+   ResponseEntity<List<EmployeeDto>> getAllEmloyees();
+
 
 }

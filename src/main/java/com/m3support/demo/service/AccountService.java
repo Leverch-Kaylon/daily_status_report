@@ -12,7 +12,7 @@ public interface AccountService {
 
 	ResponseEntity<AccountDto> createAccount(Account account);
 //
-//	List<Account> getAllAccounts();
+ResponseEntity<List<AccountDto>> getAllAccounts();
 //
 //	void updateAccount(Account account);
 //
