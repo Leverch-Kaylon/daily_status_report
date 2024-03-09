@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.m3support.demo.dtos.*;
 import com.m3support.demo.entity.Employee;
+import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,14 @@ public class AdminController {
 		return reportService.getAllDSRReports();
 	}
 
+
+	//All projects are to be assigned/created under an account
+	//The request accepts query parameter which contains ID to the reporting manager and ID to account
+	@PostMapping("/admin/createproject")
+	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
+		return this.projectService.createProject(accountId, project, reportingManagerID);
+	}
+
 	// Method that allows the manager to retrieve/view all projects.
 	@GetMapping("/admin/viewProjects")
 	public List<Project> getAllProjects() {
@@ -109,12 +118,6 @@ public class AdminController {
 //		this.projectService.updateProject(accountId, projectId, project);
 //	}
 
-	//All projects are to be assigned/created under an account
-	//The request accepts query parameter which contains ID to the reporting manager and ID to account
-	@PostMapping("/admin/createproject")
-	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
-		return this.projectService.createProject(accountId, project, reportingManagerID);
-	}
 
 	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(AD integration or something))
 	@PostMapping("/admin/employee")
@@ -140,6 +143,15 @@ public class AdminController {
 	//Cannot have the same mapping
 	@GetMapping("/admin/manager/projects")
 	public ResponseEntity<List<ProjectDto>> getProjectsUnderPM(@RequestParam(name = "manager",required = false) int managerID){
+		return projectService.getProjectsUnderManager(managerID);
+	}
+
+	@GetMapping("/admin/testException")
+	public ResponseEntity<List<ProjectDto>> testException(@RequestParam(name = "manager",required = false) int managerID) throws Exception{
+		int s = 1;
+		if(s == 1){
+			throw new Exception("MAYDAY MAYDAY");
+		}
 		return projectService.getProjectsUnderManager(managerID);
 	}
 
