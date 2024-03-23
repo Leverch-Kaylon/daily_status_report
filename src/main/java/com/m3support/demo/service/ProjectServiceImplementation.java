@@ -69,7 +69,6 @@ public class ProjectServiceImplementation implements ProjectService{
 		project.setAccount_master(account.get());
 		Optional<Employee> reportingManager = this.employeeRepository.findById(reportingManagerID);
 		project.setReportingManager_master(reportingManager.get());
-
 		return new ResponseEntity<ProjectDto>(MappingMapper.INSTANCE.toProjectDTO(this.projectRepository.save(project)), HttpStatus.OK);
 	}
 
@@ -80,6 +79,10 @@ public class ProjectServiceImplementation implements ProjectService{
 			dtoProjects.add(MappingMapper.INSTANCE.toProjectDTOUnderAccount(projects));
 		}
 		return new ResponseEntity<List<ProjectDto>>(dtoProjects,HttpStatus.OK);
+	}
+
+	public Project findProjectOnID(int projID){
+		return projectRepository.findById(projID).get();
 	}
 
 //	@Override

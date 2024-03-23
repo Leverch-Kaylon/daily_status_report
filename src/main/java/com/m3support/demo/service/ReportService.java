@@ -3,7 +3,9 @@ package com.m3support.demo.service;
 import java.sql.Date;
 import java.util.List;
 
+import com.m3support.demo.dtos.DSRResponse;
 import com.m3support.demo.entity.Report;
+import org.springframework.http.ResponseEntity;
 
 public interface ReportService {
 
@@ -15,7 +17,7 @@ public interface ReportService {
 
 	List<Report> getEmployeeDSRUnderProjects(int project_id);
 
-	public String createDSR(Report report) throws Exception;
+	public ResponseEntity<DSRResponse> createDSR(Report report, int accountID, int employeeID, int projectID) throws Exception;
 
 	public String generateDSRReport(Date currentDate) throws Exception;
 

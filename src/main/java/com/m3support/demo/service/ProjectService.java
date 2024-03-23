@@ -21,5 +21,8 @@ public interface ProjectService {
 
 	ResponseEntity<List<ProjectDto>>  getProjectsUnderManager(int reporting_manager);
 
+	public Project findProjectOnID(int projID);
 
-}
+
+
+	}

@@ -4,9 +4,17 @@ import java.io.FileOutputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.m3support.demo.dtos.DSRResponse;
+import com.m3support.demo.entity.*;
+import com.m3support.demo.repositories.AccountRepository;
+import com.m3support.demo.repositories.EmployeeRepository;
+import com.m3support.demo.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -16,7 +24,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.m3support.demo.entity.Report;
 import com.m3support.demo.repositories.ReportRepository;
 
 @Service
@@ -24,6 +31,15 @@ public class ReportServiceImplementation implements ReportService {
 
 	@Autowired
 	ReportRepository reportRepository;
+
+	@Autowired
+	AccountRepository accountRepo;
+
+	@Autowired
+	EmployeeRepository employeeRepo;
+
+	@Autowired
+	ProjectRepository projectRepo;
 
 	// Method to retrieve all employees submitted reports.
 	@Override
@@ -43,21 +59,25 @@ public class ReportServiceImplementation implements ReportService {
 
 	// Method that allows an employee to submit their daily report.
 	@Override
-	public String createDSR(Report report) throws Exception {
+	public ResponseEntity<DSRResponse> createDSR(Report report, int accountID, int employeeID, int projectID) throws Exception {
+		//Optional<Report> exists = reportRepository.existsBySubmissionDate(projectID,String.valueOf(report.getSubmissionDate()),employeeID);
 
-		boolean exists = reportRepository.existsBySubmissionDate(report.getSubmissionDate());
+		if (false) {
+			return new ResponseEntity<DSRResponse>(new DSRResponse(true,""," Error - You have already sucessfully submitted your daily status report for the day :"
+					+ report.getSubmissionDate()), HttpStatus.OK);
+		}else {
+			Project proj =  projectRepo.findById(projectID).get();
+			Account acc =  accountRepo.findById(accountID).get();
+			Employee employee =  employeeRepo.findById(employeeID).get();
 
-		if (exists) {
-
-			return "You have already sucessfully submitted your daily status report for the day : "
-					+ report.getSubmissionDate();
-		}
-
-		else {
-
+			report.setAccount_id(acc);
+			report.setEmp_id(employee);
+			report.setProject_id(proj);
+			System.out.println(proj.getReporting_manager());
+			System.out.println(employee.getEmp_firstname());
 			this.reportRepository.save(report);
 
-			return "Report Has Been Successfully Created & Submitted.";
+			return new ResponseEntity<DSRResponse>(new DSRResponse(true,"Successfully submitted DSR",""), HttpStatus.OK);
 		}
 
 	}

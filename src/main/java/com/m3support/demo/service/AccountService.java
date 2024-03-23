@@ -12,7 +12,8 @@ public interface AccountService {
 
 	ResponseEntity<AccountDto> createAccount(Account account);
 //
-ResponseEntity<List<AccountDto>> getAllAccounts();
+	ResponseEntity<List<AccountDto>> getAllAccounts();
+	public Account findAccountOnID(int projID);
 //
 //	void updateAccount(Account account);
 //

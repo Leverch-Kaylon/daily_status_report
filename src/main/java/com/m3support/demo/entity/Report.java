@@ -30,16 +30,17 @@ public class Report {
 	@JoinColumn(name = "emp_id", referencedColumnName = "emp_id")
 	private Employee emp_id;
 
-	@Lob
-	@Column(name = "task_completed")
+
+//	@Lob
+	@Column(name = "task_completed", columnDefinition = "TEXT")
 	private String task_completed;
 
-	@Lob
-	@Column(name = "task_planned")
+//	@Lob
+	@Column(name = "task_planned", columnDefinition = "TEXT")
 	private String task_planned;
 
-	@Lob
-	@Column(name = "task_issues")
+//	@Lob
+	@Column(name = "task_issues", columnDefinition = "TEXT")
 	private String task_issues;
 
 	@Id

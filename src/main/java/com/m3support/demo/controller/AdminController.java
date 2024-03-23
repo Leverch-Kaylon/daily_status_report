@@ -1,18 +1,16 @@
 package com.m3support.demo.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import com.m3support.demo.dtos.*;
-import com.m3support.demo.entity.Employee;
+import com.m3support.demo.entity.*;
 import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.m3support.demo.entity.Account;
-import com.m3support.demo.entity.Project;
-import com.m3support.demo.entity.Report;
 import com.m3support.demo.service.AccountService;
 import com.m3support.demo.service.EmployeeService;
 import com.m3support.demo.service.ProjectService;
@@ -146,13 +144,20 @@ public class AdminController {
 		return projectService.getProjectsUnderManager(managerID);
 	}
 
-	@GetMapping("/admin/testException")
-	public ResponseEntity<List<ProjectDto>> testException(@RequestParam(name = "manager",required = false) int managerID) throws Exception{
-		int s = 1;
-		if(s == 1){
-			throw new Exception("MAYDAY MAYDAY");
-		}
-		return projectService.getProjectsUnderManager(managerID);
+	//Query parameters include accountID,EmpID,Proj ID, the remaining are header parameters
+	@PostMapping("/admin/assign/employee")
+	public void assignProjectToEmployee(@RequestParam(name = "accountID") int accountID, @RequestParam(name = "employeeID") int employeeID,
+										@RequestParam(name = "projectID") int projectID, @RequestHeader(name = "created_by") String created_by,
+										@RequestHeader(name = "created_on") Date created_on, @RequestHeader(name = "modified_by") String modified_by,
+										@RequestHeader(name = "modified_on") Date modified_on){
+
+		//pull user information based on IDs
+		//Need to get product, employee, account
+		 Project proj =  projectService.findProjectOnID(projectID);
+		 Account acc =  accountService.findAccountOnID(accountID);
+		 Employee employee =  employeeService.findEmployeeOnID(employeeID);
+		 //Populate the entity by searching for account, project and employee
+		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,created_on,created_by,modified_on,modified_by));
 	}
 
 }

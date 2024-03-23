@@ -14,6 +14,20 @@ import javax.persistence.Table;
 @Table(name = "account_project_employee_transactional")
 @IdClass(AccountProjectEmployeeId.class)
 public class AccountProjectEmployee {
+	public AccountProjectEmployee(Account account_id, Employee emp_id,
+								  Project project_id, boolean deleted,
+								  Date createdOn, String createdBy, Date modifiedOn,
+								  String modifiedBy) {
+		this.account_id = account_id;
+		this.emp_id = emp_id;
+		this.project_id = project_id;
+		this.deleted = deleted;
+		this.createdOn = createdOn;
+		this.createdBy = createdBy;
+		this.modifiedOn = modifiedOn;
+		this.modifiedBy = modifiedBy;
+	}
+	 public AccountProjectEmployee(){}
 
 	@Id
 	@ManyToOne

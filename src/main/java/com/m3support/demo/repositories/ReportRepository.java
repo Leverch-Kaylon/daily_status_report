@@ -2,6 +2,7 @@ package com.m3support.demo.repositories;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,6 +35,7 @@ public interface ReportRepository extends JpaRepository<Report, ReportId> {
 	@Query("SELECT rep FROM Report rep WHERE rep.project_id.project_id =?1 AND rep.submissionDate BETWEEN ?2 AND ?3")
 	List<Report> getReportsOfEmployeeByDateRange(int project_id, Date startDate, Date endDate);
 
-	boolean existsBySubmissionDate(Date date);
+//	@Query("SELECT rep from Report rep where rep.project_id.id = ?1 AND rep.submissionDate = ?2 AND rep.emp_id")
+//	Optional<Report> existsBySubmissionDate(int projectID,String date,int employeeID);
 
 }

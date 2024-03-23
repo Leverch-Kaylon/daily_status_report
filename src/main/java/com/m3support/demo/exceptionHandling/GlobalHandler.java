@@ -29,7 +29,6 @@ public class GlobalHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(Exception.class)
     ResponseEntity<ErrorDetails> mainException(Exception badRequest){
-        System.out.println("ENTERED BAD REQUEST");
         ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR.name(),badRequest.getLocalizedMessage(), Arrays.toString(badRequest.getStackTrace()));
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }

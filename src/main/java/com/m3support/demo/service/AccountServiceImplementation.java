@@ -48,6 +48,10 @@ public class AccountServiceImplementation implements AccountService {
 	return new ResponseEntity<List<AccountDto>>(dtoAccounts,HttpStatus.OK);
 	}
 
+	public Account findAccountOnID(int projID){
+		return accountRepository.findById(projID).get();
+	}
+
 	// Method used to retrieve account dashboard details.
 //	@Override
 //	public List<AccountDto> getAccountsDashboard() {

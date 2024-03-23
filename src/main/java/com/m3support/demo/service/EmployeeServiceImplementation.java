@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.m3support.demo.dtos.EmployeeDto;
+import com.m3support.demo.entity.AccountProjectEmployee;
 import com.m3support.demo.entity.Employee;
 import com.m3support.demo.mapping.MappingMapper;
+import com.m3support.demo.repositories.ProjectEmployeeAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class EmployeeServiceImplementation implements EmployeeService {
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
+
+	@Autowired
+	ProjectEmployeeAccount employeeAssignAccount;
 	
 	@Override
 	@GetMapping("/employee/employeeDashboard")
@@ -47,5 +52,12 @@ public class EmployeeServiceImplementation implements EmployeeService {
 		return new ResponseEntity<List<EmployeeDto>>(dtoEmployees,HttpStatus.OK);
 	}
 
+		public Employee findEmployeeOnID(int empID){
+			return employeeRepository.findById(empID).get();
+		}
+
+	public ResponseEntity<AccountProjectEmployee> assignEmployeeToProject(AccountProjectEmployee assignEmployee){
+		return new ResponseEntity<AccountProjectEmployee>(employeeAssignAccount.save(assignEmployee),HttpStatus.OK);
+	}
 
 }

@@ -3,13 +3,8 @@ package com.m3support.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.m3support.demo.dtos.DSRResponse;
 import com.m3support.demo.entity.Report;
@@ -38,21 +33,14 @@ public class EmployeeController {
 
 	// Method that allows an employee to submit their daily status report.
 	@PostMapping("/employee/createDSR")
-	public DSRResponse createDSR(@RequestBody Report report) throws Exception {
+	public ResponseEntity<DSRResponse> createDSR(@RequestBody Report report,
+												@RequestParam(name = "accountID") int accountID, @RequestParam(name = "employeeID") int employeeID,
+												@RequestParam(name = "projectID") int projectID) throws Exception {
 
-		boolean exists = reportRepository.existsBySubmissionDate(report.getSubmissionDate());
+//		boolean exists = reportRepository.existsBySubmissionDate(report.getSubmissionDate());
 		DSRResponse response = new DSRResponse();
-		if (exists) {
-			response.setStatus(false);
-			response.setErrorMessage("You have already sucessfully submitted your daily status report for the day : "
-					+ report.getSubmissionDate());
-			return response;
-		}
 
-		this.reportService.createDSR(report);
-		response.setStatus(true);
-		response.setErrorMessage("Successfully submitted DSR");
-		return response;
+		return this.reportService.createDSR(report,accountID,employeeID,projectID);
 	}
 
 }
