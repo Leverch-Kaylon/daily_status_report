@@ -4,20 +4,16 @@ import java.time.LocalDateTime;
 
 public class ErrorDetails {
 
-    public ErrorDetails(int code, String title, String message, String details) {
-        this.timestamp = timestamp;
+    public ErrorDetails(int code, String title, String message) {
         this.code = code;
         this.title = title;
         this.message = message;
-        this.details = details;
     }
 
     private LocalDateTime timestamp;
     private int code;
     private String title;
     private String message;
-
-    private String details;
 
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -48,13 +44,5 @@ public class ErrorDetails {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
     }
 }

@@ -2,9 +2,12 @@ package com.dsr.repositories;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.dsr.entity.Employee;
+
+import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
@@ -17,6 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
 //			+ "INNER JOIN ae.emp_id e ON ae.emp_id.emp_id = e.emp_id WHERE e.emp_id.emp_email = ?1")
 //    List<FomerEmployeeDto> getEmployeeDashboard(String emp_email);
 
-	
+    @Query("SELECT employee FROM Employee employee WHERE employee.emp_role = ?1")
+	List<Employee> findEmployeesByRole(String role);
 	
 }

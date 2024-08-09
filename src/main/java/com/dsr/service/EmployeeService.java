@@ -12,12 +12,15 @@ public interface EmployeeService {
 	
    List<FomerEmployeeDto> getEmployeeDashboard(String emp_email);
 
-   ResponseEntity<EmployeeDto> addEmployee(Employee employee);
+   EmployeeDto addEmployee(Employee employee);
 
-   ResponseEntity<List<EmployeeDto>> getAllEmloyees();
+   List<EmployeeDto> getAllEmployees(String role);
 
-   Employee findEmployeeOnID(int empID);
+   EmployeeDto findEmployeeOnID(int empID);
 
-   ResponseEntity<AccountProjectEmployee> assignEmployeeToProject(AccountProjectEmployee assignEmployee);
+   Employee findEmployeeOnIDReference(int empID);
+
+
+   AccountProjectEmployee assignEmployeeToProject(AccountProjectEmployee assignEmployee);
 
    }

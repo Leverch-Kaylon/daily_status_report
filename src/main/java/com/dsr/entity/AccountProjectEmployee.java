@@ -1,6 +1,6 @@
 package com.dsr.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,5 +58,70 @@ public class AccountProjectEmployee {
 
 	@Column(name = "modifiedBy")
 	private String modifiedBy;
+
+
+	public Account getAccount_id() {
+		return account_id;
+	}
+
+	public void setAccount_id(Account account_id) {
+		this.account_id = account_id;
+	}
+
+	public Employee getEmp_id() {
+		return emp_id;
+	}
+
+	public void setEmp_id(Employee emp_id) {
+		this.emp_id = emp_id;
+	}
+
+	public Project getProject_id() {
+		return project_id;
+	}
+
+	public void setProject_id(Project project_id) {
+		this.project_id = project_id;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 
 }

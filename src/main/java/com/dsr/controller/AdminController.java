@@ -1,25 +1,30 @@
 package com.dsr.controller;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.sql.Date;
+import java.util.*;
+
 
 import com.dsr.dtos.AccountDto;
 import com.dsr.dtos.EmployeeDto;
 import com.dsr.dtos.FomerEmployeeDto;
 import com.dsr.dtos.ProjectDto;
 import com.dsr.entity.*;
+import com.dsr.mapping.MappingMapper;
 import com.dsr.service.AccountService;
 import com.dsr.service.EmployeeService;
 import com.dsr.service.ProjectService;
 import com.dsr.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 //Below CORS was for Angular front end
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class AdminController {
 
 	@Autowired
@@ -35,50 +40,34 @@ public class AdminController {
     EmployeeService employeeService;
 
 	// Method used to create an account.
-	@PostMapping("/admin/createAccount")
+	@PostMapping("/account")
 	public ResponseEntity<AccountDto> createAccount(@RequestBody Account account) {
-
-		return this.accountService.createAccount(account);
-
-
+		return new ResponseEntity<AccountDto>(accountService.createAccount(account),HttpStatus.OK);
 	}
 
-	// Method used to update an account
+	//TODO Method used to update an account
 //	@PutMapping("/admin/updateAccount")
 //	public void updateAccount(@RequestBody Account account) {
 //		this.accountService.updateAccount(account);
 //	}
 //
 	// Method to view all accounts.
-	@GetMapping("/admin/viewAccounts")
+	@GetMapping("/account")
 	public ResponseEntity<List<AccountDto>> getAllAccounts() {
-
-		return accountService.getAllAccounts();
-
+		return new ResponseEntity<>(accountService.getAllAccounts(),HttpStatus.OK);
 	}
 
 	// Method to view all employees submitted reports.
-	@GetMapping("/admin/viewReports")
-	public List<Report> getAllDSRReports() {
+//	@GetMapping("/admin/viewReports")
+//	public List<Report> getAllDSRReports() {
+//		return reportService.getAllDSRReports();
+//	}
 
-		return reportService.getAllDSRReports();
-	}
-
-
-	//All projects are to be assigned/created under an account
-	//The request accepts query parameter which contains ID to the reporting manager and ID to account
-	@PostMapping("/admin/createproject")
-	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
-		return this.projectService.createProject(accountId, project, reportingManagerID);
-	}
-
-	// Method that allows the manager to retrieve/view all projects.
-	@GetMapping("/admin/viewProjects")
-	public List<Project> getAllProjects() {
-
-		return projectService.getAllProjects();
-
-	}
+	//TODO Method that allows the admin to retrieve/view all projects.
+//	@GetMapping("/admin/viewProjects")
+//	public ResponseEntity<List<ProjectDto>> getAllProjects() {
+//		return new ResponseEntity<>(projectService.getAllProjects(),HttpStatus.OK);
+//	}
 
 	// Method used to retrieve account dashboard details.
 //	@GetMapping("/admin/accountsDashboard")
@@ -102,14 +91,13 @@ public class AdminController {
 //		return accountService.getAccountsForProjects();
 //	}
 
-	// Method that retrieves employee details by the employee email_id .
-	@GetMapping("/admin/employeeDashboard/{emp_email}/")
-	public List<FomerEmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
+	//TODO Method that retrieves employee details by the employee email_id .
+//	@GetMapping("/admin/employee/{emp_email}")
+//	public List<FomerEmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
+//		return employeeService.getEmployeeDashboard(emp_email.toLowerCase());
+//	}
 
-		return employeeService.getEmployeeDashboard(emp_email.toLowerCase());
-
-	}
-
+	//TODO Method to update project
 //	@PutMapping("/admin/updateProject/{accountId}/{projectId}")
 //	public void updateProject(@PathVariable("accountId") int accountId, @PathVariable("projectId") int projectId,
 //			@RequestBody Project project) {
@@ -117,47 +105,60 @@ public class AdminController {
 //	}
 
 
-	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(AD integration or something))
-	@PostMapping("/admin/employee")
+	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(Federated credentials or something))
+	@PostMapping("/employee")
 	public ResponseEntity<EmployeeDto> addEmployee(@RequestBody Employee employee) {
-		return employeeService.addEmployee(employee);
-		//return new ResponseEntity<EmployeeDto>(HttpStatus.OK);
+		return new ResponseEntity<>(employeeService.addEmployee(employee),HttpStatus.OK);
 	}
 
-	@GetMapping("/admin/employees")
-	public ResponseEntity<List<EmployeeDto>> getAllemployees(){
-		return employeeService.getAllEmloyees();
+	@GetMapping("/employee")
+	public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam(name = "role", required = false) Optional<String> role){
+		return new ResponseEntity<>(employeeService.getAllEmployees(role.orElse("All")),HttpStatus.OK);
 	}
-
-	//Don't really need endpoint for all projects?
 
 	//Get projects Under account, query parameter to filer on account
-	@GetMapping("/admin/account/projects")
-	public ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(@RequestParam(name = "account",required = false) int accountID){
-	return projectService.getProjectsUnderAccount(accountID);
+	@GetMapping("/project")
+	public ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(@RequestParam(name = "account",required = false) Optional<Integer> accountID){
+	return new ResponseEntity<List<ProjectDto>>(projectService.getProjectsUnderAccount(accountID.orElse(0)),HttpStatus.OK);
 	}
 
-	//Get projects under specific reporting manager
-	//Cannot have the same mapping
-	@GetMapping("/admin/manager/projects")
-	public ResponseEntity<List<ProjectDto>> getProjectsUnderPM(@RequestParam(name = "manager",required = false) int managerID){
-		return projectService.getProjectsUnderManager(managerID);
+	//All projects are to be assigned/created under an account
+	//The request accepts query parameter which contains ID to the reporting manager and ID to account
+	@PostMapping("/project")
+	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
+		return new ResponseEntity<>(projectService.createProject(accountId, project, reportingManagerID),HttpStatus.OK);
+	}
+
+	//Get specific user
+	@GetMapping("/employee/{id}")
+	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable(name = "id",required = true) int employeeID){
+		return new ResponseEntity<EmployeeDto>(employeeService.findEmployeeOnID(employeeID),HttpStatus.OK);
 	}
 
 	//Query parameters include accountID,EmpID,Proj ID, the remaining are header parameters
-	@PostMapping("/admin/assign/employee")
-	public void assignProjectToEmployee(@RequestParam(name = "accountID") int accountID, @RequestParam(name = "employeeID") int employeeID,
+	@PostMapping("/assign/employee")
+	public ResponseEntity<Void> assignProjectToEmployee(@RequestParam(name = "accountID") int accountID, @RequestParam(name = "employeeID") int employeeID,
 										@RequestParam(name = "projectID") int projectID, @RequestHeader(name = "created_by") String created_by,
-										@RequestHeader(name = "created_on") Date created_on, @RequestHeader(name = "modified_by") String modified_by,
-										@RequestHeader(name = "modified_on") Date modified_on){
+										@RequestHeader(name = "modified_by") String modified_by)
+	{
 
 		//pull user information based on IDs
 		//Need to get product, employee, account
-		 Project proj =  projectService.findProjectOnID(projectID);
-		 Account acc =  accountService.findAccountOnID(accountID);
-		 Employee employee =  employeeService.findEmployeeOnID(employeeID);
+		 Project proj =  projectService.findProjectByIDReference(projectID);
+		 Account acc =  accountService.findAccountOnIDReference(accountID);
+		 Employee employee =  employeeService.findEmployeeOnIDReference(employeeID);
 		 //Populate the entity by searching for account, project and employee
-		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,created_on,created_by,modified_on,modified_by));
+		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,Date.valueOf(LocalDate.now()),created_by, Date.valueOf(LocalDate.now()),modified_by));
+        return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	// Method that returns all projects under an account.
+//	@GetMapping("/manager/viewAllProjectsUnderAccount/{account_id}")
+//	public List<Project> getAllProjectsUnderAccount(@PathVariable int account_id) {
+//
+//		return projectService.getProjectsUnderAccount(account_id);
+//
+//	}
+
 
 }

@@ -13,13 +13,7 @@ public class EmployeeDto {
         private String emp_firstname;
         private String emp_email;
         private String emp_role;
-        private boolean deleted = false;
-        private Date created_on;
-        private String created_by;
 
-        private Date modified_on;
-
-        private String modified_by;
 
 	public EmployeeDto() {
         }
@@ -32,11 +26,7 @@ public class EmployeeDto {
             this.emp_firstname = emp_firstname;
             this.emp_email = emp_email;
             this.emp_role = emp_role;
-            this.deleted = deleted;
-            this.created_on = created_on;
-            this.created_by = created_by;
-            this.modified_on = modified_on;
-            this.modified_by = modified_by;
+
         }
 
 
@@ -89,62 +79,10 @@ public class EmployeeDto {
             this.emp_role = emp_role;
         }
 
-
-        public boolean isDeleted() {
-            return deleted;
-        }
-
-
-        public void setDeleted(boolean deleted) {
-            this.deleted = deleted;
-        }
-
-
-        public Date getCreated_on() {
-            return created_on;
-        }
-
-
-        public void setCreated_on(Date created_on) {
-            this.created_on = created_on;
-        }
-
-
-        public String getCreated_by() {
-            return created_by;
-        }
-
-
-        public void setCreated_by(String created_by) {
-            this.created_by = created_by;
-        }
-
-
-        public Date getModified_on() {
-            return modified_on;
-        }
-
-
-        public void setModified_on(Date modified_on) {
-            this.modified_on = modified_on;
-        }
-
-
-        public String getModified_by() {
-            return modified_by;
-        }
-
-
-        public void setModified_by(String modified_by) {
-            this.modified_by = modified_by;
-        }
-
         @Override
         public String toString() {
             return "Employee [emp_id=" + emp_id + ", emp_psid=" + emp_psid + ", emp_firstname=" + emp_firstname
-                    + ", emp_email=" + emp_email + ", emp_role=" + emp_role + ", deleted=" + deleted + ", created_on="
-                    + created_on + ", created_by=" + created_by + ", modified_on=" + modified_on + ", modified_by="
-                    + modified_by + "]";
+                    + ", emp_email=" + emp_email + ", emp_role=" + emp_role + "]";
         }
 
 
