@@ -48,8 +48,8 @@ public class ProjectServiceImplementation implements ProjectService{
 		logger.atInfo().log("Service Layer - Project: Get projects under account");
 		List<ProjectDto> dtoProjects = new ArrayList<>();
 		if(account_id != 0){
-			Project project=projectRepository.findProjectUnderAccounts(account_id).orElseThrow(() -> new DataNotFound("Account does not exist"));
-			dtoProjects.add(MappingMapper.INSTANCE.toProjectDTOUnderAccount(project));
+			List<Project> project=projectRepository.findProjectUnderAccounts(account_id).orElseThrow(() -> new DataNotFound("Account does not exist"));
+			project.forEach(p->dtoProjects.add(MappingMapper.INSTANCE.toProjectDTO(p)));
 		}else{
 			List<Project> allProjects = projectRepository.findAll();
 			allProjects.forEach(p -> dtoProjects.add(MappingMapper.INSTANCE.toProjectDTO(p)));
@@ -85,12 +85,26 @@ public class ProjectServiceImplementation implements ProjectService{
 		return entityManager.getReference(Project.class, proj.getProject_id());
 	}
 
-//	@Override
-//	public void updateProject(int accountId, int projectId, Project project) {
-//		Optional<Account> account = this.accountRepository.findById(accountId);
-//		project.setAccount_master(account.get());
-//		this.projectRepository.save(project);
-//	}
+	@Override
+	public Project updateProject(int projectId,int reportingManager, int accountID, ProjectDto projectdto) {
+		Project project = projectRepository.findById(projectId).orElseThrow(() -> new DataNotFound("No such project found with ID "+projectId));
+
+		if(accountID != 0){
+			Account account = new Account();
+			account.setAccount_id(accountID);
+			project.setAccount_master(entityManager.getReference(Account.class,account.getAccount_id()));
+
+		}
+		if(reportingManager != 0){
+			Employee employee = new Employee();
+			employee.setEmp_id(reportingManager);
+			project.setReporting_manager(entityManager.getReference(Employee.class,employee.getEmp_id()));
+		}
+		MappingMapper.INSTANCE.updateProject(projectdto,project);
+		project.setModified_on(Date.valueOf(LocalDate.now()));
+		this.projectRepository.save(project);
+		return project;
+	}
 
 	@Override
 	public List<ProjectDto> getProjectsUnderManager(int reporting_manager, int account_id) {

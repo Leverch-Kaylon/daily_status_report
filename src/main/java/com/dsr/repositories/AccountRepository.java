@@ -18,8 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 //			+ "GROUP BY a.account_id ORDER BY a.modifiedOn DESC")
 //	List<AccountDto> getAccountDashboard();
 //
-//	//@Query("SELECT new com.m3support.demo.dtos.AccountIdDto(a.account_id, a.account_desc) FROM Account a")
-//	List<AccountIdDto> getAccountsForProjects();
 //
 //	//@Query("SELECT new com.m3support.demo.dtos.ManagerDto(emp.emp_id, emp.emp_psid, emp.emp_firstname) FROM Employee emp WHERE emp.emp_role like '%manager%' ")
 //	List<ManagerDto> getManagers();

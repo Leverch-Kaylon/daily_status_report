@@ -11,6 +11,7 @@ import com.dsr.entity.Project;
 import com.dsr.entity.Report;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -22,9 +23,14 @@ public interface MappingMapper {
 
     ProjectDto toProjectDTO(Project project);
 
-    ProjectDto toProjectDTOUnderAccount(Project project);
-
+    @Mapping(target= "modified_by", ignore = true)
     AccountDto toAccountDTO(Account account);
 
     ReportDTO toReportDTO(Report report);
+
+    @Mapping(target= "account_id", ignore = true)
+    void updateAccount(AccountDto accountDto, @MappingTarget Account account );
+
+    @Mapping(target= "project_id", ignore = true)
+    void updateProject(ProjectDto projectDto, @MappingTarget Project project );
 }

@@ -13,7 +13,7 @@ import com.dsr.entity.Project;
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
 @Query("SELECT proj FROM Project proj WHERE proj.account_id.account_id =?1 ")
-Optional<Project> findProjectUnderAccounts(int account_id);
+Optional<List<Project>> findProjectUnderAccounts(int account_id);
 //
 //	@Query("SELECT new com.m3support.demo.dtos.ProjectDto(p.project_id, p.project_desc,"
 //			+ " a.account_id, a.account_desc,"

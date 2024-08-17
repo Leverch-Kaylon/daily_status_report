@@ -15,12 +15,9 @@ public interface AccountService {
 
 	public Account findAccountOnIDReference(int projID);
 
-	//
-//	void updateAccount(Account account);
-//
+	Account updateAccount(int accountID,AccountDto account);
+
 //	List<AccountDto> getAccountsDashboard();
-//
-//	List<AccountIdDto> getAccountsForProjects();
 
 	List<Account> getAccountsFromManager(int reporting_manager);
 

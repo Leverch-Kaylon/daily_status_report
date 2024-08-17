@@ -1,5 +1,7 @@
 package com.dsr.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@DynamicUpdate
 @Table(name = "account_master")
 public class Account {
 
@@ -49,6 +52,14 @@ public class Account {
 		this.created_on = created_on;
 		this.created_by = created_by;
 		this.modified_on = modified_on;
+		this.modified_by = modified_by;
+	}
+
+	public String getModified_by() {
+		return modified_by;
+	}
+
+	public void setModified_by(String modified_by) {
 		this.modified_by = modified_by;
 	}
 
@@ -100,13 +111,6 @@ public class Account {
 		this.modified_on = modified_on;
 	}
 
-	public String getModifiedBy() {
-		return modified_by;
-	}
-
-	public void setModifiedBy(String modified_by) {
-		this.modified_by = modified_by;
-	}
 
 	@Override
 	public String toString() {

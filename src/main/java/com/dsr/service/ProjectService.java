@@ -15,7 +15,7 @@ public interface ProjectService {
 
 	ProjectDto createProject(int accountId, Project project, int reportingManagerID);
 	
-	//void updateProject(int accountId, int projectId, Project project);
+	Project updateProject(int projectId,int reportingManager, int accountID, ProjectDto project);
 
 	List<ProjectDto>  getProjectsUnderManager(int reporting_manager, int accountID);
 

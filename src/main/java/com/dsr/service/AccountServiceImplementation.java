@@ -42,11 +42,16 @@ public class AccountServiceImplementation implements AccountService {
 		return MappingMapper.INSTANCE.toAccountDTO(this.accountRepository.save(account));
 	}
 
-//	// Method used to update an account.
-//	@Override
-//	public void updateAccount(Account account) {
-//		this.accountRepository.save(account);
-//	}
+// Method used to update an account.
+	@Override
+	public Account updateAccount(int accountID,AccountDto accountdto) {
+		logger.atInfo().log("Service Layer : Updating account");
+		Account account = accountRepository.findById(accountID).orElseThrow(() -> new DataNotFound("Account with ID: "+accountID+" cannot be found"));
+		account.setModifiedOn(Date.valueOf(LocalDate.now()));
+		MappingMapper.INSTANCE.updateAccount(accountdto,account);
+		this.accountRepository.save(account);
+		return account;
+	}
 
 	// Method to retrieve all accounts.
 	@Override
@@ -80,12 +85,6 @@ public class AccountServiceImplementation implements AccountService {
 //		return accountRepository.getAccountDashboard();
 //	}
 
-	// Method used to retrieve account identifier details
-//	@Override
-//	public List<AccountIdDto> getAccountsForProjects() {
-//
-//		return accountRepository.getAccountsForProjects();
-//	}
 	@Override
 	public List<Account> getAccountsFromManager(int reporting_manager) {
 		logger.atInfo().log("Service Layer : Get accounts of manager with ID ", reporting_manager);

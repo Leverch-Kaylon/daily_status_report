@@ -10,6 +10,7 @@ public class ProjectDto {
 
 	private String project_desc;
 
+	private String modified_by;
 
 	// Account default constructor
 	public ProjectDto() {
@@ -23,6 +24,13 @@ public class ProjectDto {
 
 	}
 
+	public String getModified_by() {
+		return modified_by;
+	}
+
+	public void setModified_by(String modified_by) {
+		this.modified_by = modified_by;
+	}
 	public int getProject_id() {
 		return project_id;
 	}

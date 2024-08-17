@@ -1,5 +1,7 @@
 package com.dsr.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@DynamicUpdate
 @Table(name = "report_transactional")
 @IdClass(ReportId.class)
 public class Report {

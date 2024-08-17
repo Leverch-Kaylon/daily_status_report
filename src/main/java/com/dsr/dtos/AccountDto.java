@@ -11,6 +11,15 @@ public class AccountDto {
     private int account_id;
     private String account_desc;
 
+    private String modified_by;
+
+    public String getModified_by() {
+        return modified_by;
+    }
+
+    public void setModified_by(String modified_by) {
+        this.modified_by = modified_by;
+    }
 
     // Account default constructor
     public AccountDto() {

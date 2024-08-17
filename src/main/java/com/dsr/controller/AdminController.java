@@ -45,29 +45,25 @@ public class AdminController {
 		return new ResponseEntity<AccountDto>(accountService.createAccount(account),HttpStatus.OK);
 	}
 
-	//TODO Method used to update an account
-//	@PutMapping("/admin/updateAccount")
-//	public void updateAccount(@RequestBody Account account) {
-//		this.accountService.updateAccount(account);
-//	}
-//
+	@PatchMapping("/account/{id}")
+	public ResponseEntity<AccountDto> updateAccount(@PathVariable(name="id") int accountID, @RequestBody AccountDto account) {
+		return new ResponseEntity<>(MappingMapper.INSTANCE.toAccountDTO(accountService.updateAccount(accountID,account)),HttpStatus.OK);
+	}
+
+	@PatchMapping("/project/{projectId}")
+	public ResponseEntity<ProjectDto> updateProject(@PathVariable("projectId") int projectId,
+							  @RequestParam(name = "reporting_manager", required = false) Optional<Integer> reportingManager,
+							  @RequestParam(name = "account_id", required = false) Optional<Integer> accountID,
+			@RequestBody ProjectDto project) {
+		return new ResponseEntity<>(MappingMapper.INSTANCE.toProjectDTO(projectService.updateProject(projectId,reportingManager.orElse(0),accountID.orElse(0), project)),HttpStatus.OK);
+
+	}
+
 	// Method to view all accounts.
 	@GetMapping("/account")
 	public ResponseEntity<List<AccountDto>> getAllAccounts() {
 		return new ResponseEntity<>(accountService.getAllAccounts(),HttpStatus.OK);
 	}
-
-	// Method to view all employees submitted reports.
-//	@GetMapping("/admin/viewReports")
-//	public List<Report> getAllDSRReports() {
-//		return reportService.getAllDSRReports();
-//	}
-
-	//TODO Method that allows the admin to retrieve/view all projects.
-//	@GetMapping("/admin/viewProjects")
-//	public ResponseEntity<List<ProjectDto>> getAllProjects() {
-//		return new ResponseEntity<>(projectService.getAllProjects(),HttpStatus.OK);
-//	}
 
 	// Method used to retrieve account dashboard details.
 //	@GetMapping("/admin/accountsDashboard")
@@ -85,24 +81,13 @@ public class AdminController {
 //
 //	}
 
-	// Method used to retrieve account identifier details
-//	@GetMapping("/admin/accountIdentifiers")
-//	public List<AccountIdDto> accountIdentifiers() {
-//		return accountService.getAccountsForProjects();
-//	}
-
 	//TODO Method that retrieves employee details by the employee email_id .
 //	@GetMapping("/admin/employee/{emp_email}")
 //	public List<FomerEmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
 //		return employeeService.getEmployeeDashboard(emp_email.toLowerCase());
 //	}
 
-	//TODO Method to update project
-//	@PutMapping("/admin/updateProject/{accountId}/{projectId}")
-//	public void updateProject(@PathVariable("accountId") int accountId, @PathVariable("projectId") int projectId,
-//			@RequestBody Project project) {
-//		this.projectService.updateProject(accountId, projectId, project);
-//	}
+
 
 
 	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(Federated credentials or something))
@@ -153,12 +138,12 @@ public class AdminController {
 	}
 
 	// Method that returns all projects under an account.
-//	@GetMapping("/manager/viewAllProjectsUnderAccount/{account_id}")
-//	public List<Project> getAllProjectsUnderAccount(@PathVariable int account_id) {
-//
-//		return projectService.getProjectsUnderAccount(account_id);
-//
-//	}
+	@GetMapping("/project/{account_id}")
+	public ResponseEntity<List<ProjectDto>> getAllProjectsUnderAccount(@PathVariable int account_id) {
+
+		return new ResponseEntity<>(projectService.getProjectsUnderAccount(account_id),HttpStatus.OK);
+
+	}
 
 
 }
