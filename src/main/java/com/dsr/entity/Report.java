@@ -11,6 +11,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @DynamicUpdate
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 public class Report {
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "account_id", referencedColumnName = "account_id")
 	private Account account_id;
 
@@ -34,14 +37,17 @@ public class Report {
 
 
 //	@Lob
+	@NotBlank
 	@Column(name = "task_completed", columnDefinition = "TEXT")
 	private String task_completed;
 
 //	@Lob
+	@NotBlank
 	@Column(name = "task_planned", columnDefinition = "TEXT")
 	private String task_planned;
 
 //	@Lob
+	@NotBlank
 	@Column(name = "task_issues", columnDefinition = "TEXT")
 	private String task_issues;
 

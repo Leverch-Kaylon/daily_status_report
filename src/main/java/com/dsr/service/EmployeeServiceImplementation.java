@@ -47,10 +47,12 @@ public class EmployeeServiceImplementation implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeDto addEmployee(Employee employee) {
+	public EmployeeDto addEmployee(Employee employee, String created_by) {
 		logger.atInfo().log("Service Layer : Adding Employee");
 		employee.setCreated_on(Date.valueOf(LocalDate.now()));
 		employee.setModified_on(Date.valueOf(LocalDate.now()));
+		employee.setCreated_by(created_by);
+		employee.setModified_by(created_by);
 		return MappingMapper.INSTANCE.toDto(employeeRepository.save(employee));
 	}
 

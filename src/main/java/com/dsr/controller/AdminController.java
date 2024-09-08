@@ -21,6 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 //Below CORS was for Angular front end
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -41,8 +43,8 @@ public class AdminController {
 
 	// Method used to create an account.
 	@PostMapping("/account")
-	public ResponseEntity<AccountDto> createAccount(@RequestBody Account account) {
-		return new ResponseEntity<AccountDto>(accountService.createAccount(account),HttpStatus.OK);
+	public ResponseEntity<AccountDto> createAccount( @RequestHeader(name = "created-by") String createdBy,@Valid @RequestBody Account account) {
+		return new ResponseEntity<AccountDto>(accountService.createAccount(createdBy,account),HttpStatus.OK);
 	}
 
 	@PatchMapping("/account/{id}")
@@ -65,7 +67,7 @@ public class AdminController {
 		return new ResponseEntity<>(accountService.getAllAccounts(),HttpStatus.OK);
 	}
 
-	// Method used to retrieve account dashboard details.
+	//TODO ACCOUNT DASHBOARD(CONSOLIDATED INFORMATION)
 //	@GetMapping("/admin/accountsDashboard")
 //	public List<AccountDto> accountsDashboard() {
 //
@@ -73,7 +75,7 @@ public class AdminController {
 //
 //	}
 
-	// Method used to retrieve project dashboard details
+	//TODO PROJECT DASHBOARD(CONSOLIDATED INFORMATION)
 //	@GetMapping("/admin/projectsDashboard")
 //	public List<ProjectDto> getProjectsDashboard() {
 //
@@ -81,19 +83,17 @@ public class AdminController {
 //
 //	}
 
-	//TODO Method that retrieves employee details by the employee email_id .
+	//TODO EMPLOYEE DASHBOARD(CONSOLIDATED INFORMATION)
 //	@GetMapping("/admin/employee/{emp_email}")
 //	public List<FomerEmployeeDto> employeeDashboard(@PathVariable("emp_email") String emp_email) {
 //		return employeeService.getEmployeeDashboard(emp_email.toLowerCase());
 //	}
 
 
-
-
 	//Create employee(Intermittent solution, ideally would want employee to come from 3rd party(Federated credentials or something))
 	@PostMapping("/employee")
-	public ResponseEntity<EmployeeDto> addEmployee(@RequestBody Employee employee) {
-		return new ResponseEntity<>(employeeService.addEmployee(employee),HttpStatus.OK);
+	public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody Employee employee, @RequestHeader(name = "created_by") String created_by) {
+		return new ResponseEntity<>(employeeService.addEmployee(employee, created_by),HttpStatus.OK);
 	}
 
 	@GetMapping("/employee")
@@ -110,8 +110,8 @@ public class AdminController {
 	//All projects are to be assigned/created under an account
 	//The request accepts query parameter which contains ID to the reporting manager and ID to account
 	@PostMapping("/project")
-	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @RequestBody Project project, @RequestParam(name="reportingManager",required = true) int reportingManagerID) {
-		return new ResponseEntity<>(projectService.createProject(accountId, project, reportingManagerID),HttpStatus.OK);
+	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @Valid @RequestBody Project project, @RequestParam(name="reporting_manager",required = true) int reportingManagerID,@RequestHeader(name = "created_by") String created_by) {
+		return new ResponseEntity<>(projectService.createProject(accountId, project, reportingManagerID, created_by),HttpStatus.OK);
 	}
 
 	//Get specific user
@@ -122,18 +122,14 @@ public class AdminController {
 
 	//Query parameters include accountID,EmpID,Proj ID, the remaining are header parameters
 	@PostMapping("/assign/employee")
-	public ResponseEntity<Void> assignProjectToEmployee(@RequestParam(name = "accountID") int accountID, @RequestParam(name = "employeeID") int employeeID,
-										@RequestParam(name = "projectID") int projectID, @RequestHeader(name = "created_by") String created_by,
-										@RequestHeader(name = "modified_by") String modified_by)
+	public ResponseEntity<Void> assignProjectToEmployee(@RequestParam(name = "accountID") int accountID, @RequestHeader(name = "employeeID") int employeeID,
+										@RequestParam(name = "projectID") int projectID, @RequestHeader(name = "created_by") String created_by)
 	{
-
-		//pull user information based on IDs
-		//Need to get product, employee, account
 		 Project proj =  projectService.findProjectByIDReference(projectID);
 		 Account acc =  accountService.findAccountOnIDReference(accountID);
 		 Employee employee =  employeeService.findEmployeeOnIDReference(employeeID);
 		 //Populate the entity by searching for account, project and employee
-		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,Date.valueOf(LocalDate.now()),created_by, Date.valueOf(LocalDate.now()),modified_by));
+		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,Date.valueOf(LocalDate.now()),created_by, Date.valueOf(LocalDate.now()),created_by));
         return new ResponseEntity<>(HttpStatus.OK);
 	}
 

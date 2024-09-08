@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "employee_master")
@@ -20,19 +23,24 @@ public class Employee{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "emp_id")
 	private int emp_id;
-	
+
+	@Min( value = 3, message = "Employee PSID cannot be less then 3 characters")
+	@NotNull
 	@Column(name = "emp_psid")
 	private int emp_psid;
 	
 	
+	@NotBlank
 	@Column(name = "emp_firstname")
 	private String emp_firstname;
 
 	//Email validation to verify only email format of text should be allowed
-	@Column(name = "emp_email")
 	@Email
+	@NotBlank
+	@Column(name = "emp_email")
 	private String emp_email;
-	
+
+	@NotBlank
 	@Column(name = "emp_role")
 	private String emp_role;
 	
@@ -42,6 +50,7 @@ public class Employee{
 	@Column(name = "created_on")
 	private Date created_on;
 
+	@NotBlank
 	@Column(name = "created_by")
 	private String created_by;
 

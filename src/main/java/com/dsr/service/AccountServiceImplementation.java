@@ -35,10 +35,12 @@ public class AccountServiceImplementation implements AccountService {
 
 	// Method used to create an account.
 	@Override
-	public AccountDto createAccount(Account account) {
+	public AccountDto createAccount(String createdBy,Account account) {
 		logger.atInfo().log("Service Layer : Creating account");
 		account.setCreatedOn(Date.valueOf(LocalDate.now()));
 		account.setModifiedOn(Date.valueOf(LocalDate.now()));
+		account.setCreatedBy(createdBy);
+		account.setModified_by(createdBy);
 		return MappingMapper.INSTANCE.toAccountDTO(this.accountRepository.save(account));
 	}
 

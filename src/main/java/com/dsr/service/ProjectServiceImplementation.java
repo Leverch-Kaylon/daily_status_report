@@ -59,7 +59,7 @@ public class ProjectServiceImplementation implements ProjectService{
 	}
 
 	@Override
-	public ProjectDto createProject(int accountId, Project project, int reportingManagerID) {
+	public ProjectDto createProject(int accountId, Project project, int reportingManagerID, String created_by) {
 		logger.atInfo().log("Service Layer - Project: Create Project");
 		Optional<Account> account = this.accountRepository.findById(accountId);
 		project.setAccount_master(account.get());
@@ -67,6 +67,8 @@ public class ProjectServiceImplementation implements ProjectService{
 		project.setReportingManager_master(reportingManager.get());
 		project.setCreated_on(Date.valueOf(LocalDate.now()));
 		project.setModified_on(Date.valueOf(LocalDate.now()));
+		project.setCreated_by(created_by);
+		project.setModified_by(created_by);
 		return MappingMapper.INSTANCE.toProjectDTO(this.projectRepository.save(project));
 	}
 

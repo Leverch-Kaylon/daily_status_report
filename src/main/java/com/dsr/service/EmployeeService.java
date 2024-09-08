@@ -12,7 +12,7 @@ public interface EmployeeService {
 	
    List<FomerEmployeeDto> getEmployeeDashboard(String emp_email);
 
-   EmployeeDto addEmployee(Employee employee);
+   EmployeeDto addEmployee(Employee employee, String created_by);
 
    List<EmployeeDto> getAllEmployees(String role);
 

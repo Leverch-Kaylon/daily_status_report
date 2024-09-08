@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @DynamicUpdate
@@ -21,6 +23,7 @@ public class Account {
 	@Column(name = "account_id")
 	private int account_id;
 
+	@NotBlank(message = "Account description is mandatory")
 	@Column(name = "account_desc")
 	private String account_desc;
 
@@ -30,6 +33,7 @@ public class Account {
 	@Column(name = "created_on")
 	private Date created_on;
 
+	@NotNull(message = "Created By Cannot Be Empty")
 	@Column(name = "created_by")
 	private String created_by;
 

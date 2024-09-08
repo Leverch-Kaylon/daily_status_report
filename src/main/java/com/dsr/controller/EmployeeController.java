@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import com.dsr.dtos.DSRResponse;
 import com.dsr.entity.Report;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
@@ -33,7 +35,7 @@ public class EmployeeController {
 
 	// Method that allows an employee to submit their daily status report.
 	@PostMapping("/employee/DSR/{emp_id}")
-	public ResponseEntity<DSRResponse> createDSR(@RequestBody Report report,
+	public ResponseEntity<DSRResponse> createDSR(@Valid @RequestBody Report report,
 												@RequestParam(name = "accountID") int accountID, @PathVariable(name = "emp_id", required = true) int employeeID,
 												@RequestParam(name = "projectID") int projectID) throws Exception {
 		return new ResponseEntity<>(this.reportService.createDSR(report,accountID,employeeID,projectID),HttpStatus.OK);

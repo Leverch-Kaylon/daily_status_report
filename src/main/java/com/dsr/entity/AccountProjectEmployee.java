@@ -9,6 +9,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "account_project_employee_transactional")
@@ -50,6 +52,7 @@ public class AccountProjectEmployee {
 	@Column(name = "createdOn")
 	private Date createdOn;
 
+	@NotBlank
 	@Column(name = "createdBy")
 	private String createdBy;
 

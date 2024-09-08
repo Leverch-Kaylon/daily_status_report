@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @DynamicUpdate
@@ -24,14 +26,17 @@ public class Project {
 	@Column(name = "project_id")
 	private int project_id;
 
+	@NotBlank
 	@Column(name = "project_desc")
 	private String project_desc;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "reporting_manager", referencedColumnName = "emp_id")
 	private Employee reporting_manager;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "account_id", referencedColumnName = "account_id")
 	private Account account_id;
 
@@ -41,6 +46,7 @@ public class Project {
 	@Column(name = "created_on")
 	private Date created_on;
 
+	@NotBlank
 	@Column(name = "created_by")
 	private String created_by;
 
