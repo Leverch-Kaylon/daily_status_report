@@ -1,4 +1,4 @@
-package com.m1support.demo;
+package com.dsr;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
