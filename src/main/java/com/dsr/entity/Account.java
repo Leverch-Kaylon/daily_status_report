@@ -1,5 +1,7 @@
 package com.dsr.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -8,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@DynamicUpdate
 @Table(name = "account_master")
 public class Account {
 
@@ -18,6 +23,7 @@ public class Account {
 	@Column(name = "account_id")
 	private int account_id;
 
+	@NotBlank(message = "Account description is mandatory")
 	@Column(name = "account_desc")
 	private String account_desc;
 
@@ -27,6 +33,7 @@ public class Account {
 	@Column(name = "created_on")
 	private Date created_on;
 
+	@NotNull(message = "Created By Cannot Be Empty")
 	@Column(name = "created_by")
 	private String created_by;
 
@@ -49,6 +56,14 @@ public class Account {
 		this.created_on = created_on;
 		this.created_by = created_by;
 		this.modified_on = modified_on;
+		this.modified_by = modified_by;
+	}
+
+	public String getModified_by() {
+		return modified_by;
+	}
+
+	public void setModified_by(String modified_by) {
 		this.modified_by = modified_by;
 	}
 
@@ -100,13 +115,6 @@ public class Account {
 		this.modified_on = modified_on;
 	}
 
-	public String getModifiedBy() {
-		return modified_by;
-	}
-
-	public void setModifiedBy(String modified_by) {
-		this.modified_by = modified_by;
-	}
 
 	@Override
 	public String toString() {

@@ -10,15 +10,16 @@ public class AccountDto {
 
     private int account_id;
     private String account_desc;
-    private boolean deleted = false;
-
-    private java.sql.Date created_on;
-
-    private String created_by;
-
-    private java.sql.Date modified_on;
 
     private String modified_by;
+
+    public String getModified_by() {
+        return modified_by;
+    }
+
+    public void setModified_by(String modified_by) {
+        this.modified_by = modified_by;
+    }
 
     // Account default constructor
     public AccountDto() {
@@ -29,11 +30,7 @@ public class AccountDto {
                    java.sql.Date modified_on, String modified_by) {
         this.account_id = account_id;
         this.account_desc = account_desc;
-        this.deleted = deleted;
-        this.created_on = created_on;
-        this.created_by = created_by;
-        this.modified_on = modified_on;
-        this.modified_by = modified_by;
+
     }
 
     public int getAccount_id() {
@@ -52,51 +49,9 @@ public class AccountDto {
         this.account_desc = account_desc;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public java.sql.Date getCreatedOn() {
-        return created_on;
-    }
-
-    public void setCreatedOn(java.sql.Date created_on) {
-        this.created_on = created_on;
-    }
-
-    public String getCreatedBy() {
-        return created_by;
-    }
-
-    public void setCreatedBy(String created_by) {
-        this.created_by = created_by;
-    }
-
-    public java.sql.Date getModifiedOn() {
-        return modified_on;
-    }
-
-    public void setModifiedOn(Date modified_on) {
-        this.modified_on = modified_on;
-    }
-
-    public String getModifiedBy() {
-        return modified_by;
-    }
-
-    public void setModifiedBy(String modified_by) {
-        this.modified_by = modified_by;
-    }
-
     @Override
     public String toString() {
-        return "Account [account_id=" + account_id + ", account_desc=" + account_desc + ", deleted=" + deleted
-                + ", 						created_on=" + created_on + ", created_by=" + created_by + ", modified_on="
-                + modified_on + ", modified_by=" + modified_by + "]";
+        return "Account [account_id=" + account_id + ", account_desc=" + account_desc + "]";
     }
 
 }

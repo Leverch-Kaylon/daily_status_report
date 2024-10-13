@@ -8,20 +8,20 @@ import org.springframework.http.ResponseEntity;
 
 
 public interface ProjectService {
-	
-	List<Project> getAllProjects();
 
-	ResponseEntity<List<ProjectDto>> getProjectsUnderAccount(int account_id);
+	List<ProjectDto> getProjectsUnderAccount(int account_id);
 	
 	//List<ProjectDto> getProjectsDashboard();
 
-	ResponseEntity<ProjectDto> createProject(int accountId, Project project, int reportingManagerID);
+	ProjectDto createProject(int accountId, Project project, int reportingManagerID, String created_by);
 	
-	//void updateProject(int accountId, int projectId, Project project);
+	Project updateProject(int projectId,int reportingManager, int accountID, ProjectDto project);
 
-	ResponseEntity<List<ProjectDto>>  getProjectsUnderManager(int reporting_manager);
+	List<ProjectDto>  getProjectsUnderManager(int reporting_manager, int accountID);
 
-	public Project findProjectOnID(int projID);
+	public ProjectDto findProjectOnID(int projID);
+
+	public Project findProjectByIDReference(int projID);
 
 
 

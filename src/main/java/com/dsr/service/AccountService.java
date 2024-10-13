@@ -8,20 +8,18 @@ import org.springframework.http.ResponseEntity;
 
 public interface AccountService {
 
-	ResponseEntity<AccountDto> createAccount(Account account);
+	AccountDto createAccount(String createdBy, Account account);
 //
-	ResponseEntity<List<AccountDto>> getAllAccounts();
-	public Account findAccountOnID(int projID);
-//
-//	void updateAccount(Account account);
-//
+	List<AccountDto> getAllAccounts();
+	public AccountDto findAccountOnID(int projID);
+
+	public Account findAccountOnIDReference(int projID);
+
+	Account updateAccount(int accountID,AccountDto account);
+
 //	List<AccountDto> getAccountsDashboard();
-//
-//	List<AccountIdDto> getAccountsForProjects();
-//
-//	List<ManagerDto> getManagers();
-//
-//	List<Account> getAccountsFromManager(int reporting_manager);
+
+	List<Account> getAccountsFromManager(int reporting_manager);
 
 
 }

@@ -1,6 +1,8 @@
 
 package com.dsr.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -11,8 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@DynamicUpdate
 @Table(name = "project_master")
 public class Project {
 
@@ -21,16 +26,19 @@ public class Project {
 	@Column(name = "project_id")
 	private int project_id;
 
+	@NotBlank
 	@Column(name = "project_desc")
 	private String project_desc;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "reporting_manager", referencedColumnName = "emp_id")
 	private Employee reporting_manager;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "account_id", referencedColumnName = "account_id")
-	private Account account_master;
+	private Account account_id;
 
 	@Column(name = "deleted")
 	private boolean deleted = false;
@@ -38,6 +46,7 @@ public class Project {
 	@Column(name = "created_on")
 	private Date created_on;
 
+	@NotBlank
 	@Column(name = "created_by")
 	private String created_by;
 
@@ -52,12 +61,12 @@ public class Project {
 
 	}
 
-	public Project(int project_id, String project_desc, Employee reporting_manager, Account account_master,
+	public Project(int project_id, String project_desc, Employee reporting_manager, Account account_id,
 			boolean deleted, Date created_on, String created_by, Date modified_on, String modified_by) {
 		this.project_id = project_id;
 		this.project_desc = project_desc;
 		this.reporting_manager = reporting_manager;
-		this.account_master = account_master;
+		this.account_id = account_id;
 		this.deleted = deleted;
 		this.created_on = created_on;
 		this.created_by = created_by;
@@ -130,12 +139,12 @@ public class Project {
 	}
 
 	public Account getAccount_master() {
-		return account_master;
+		return account_id;
 	}
 
-	public void setAccount_master(Account account_master) {
+	public void setAccount_master(Account account_id) {
 
-		this.account_master = account_master;
+		this.account_id = account_id;
 	}
 
 	public void setReportingManager_master(Employee employee_master) {
@@ -146,7 +155,7 @@ public class Project {
 	@Override
 	public String toString() {
 		return "Project [project_id=" + project_id + ", project_desc=" + project_desc + ", reporting_manager="
-				+ reporting_manager + ", account_master=" + account_master + ", deleted=" + deleted + ", created_on="
+				+ reporting_manager + ", account_id=" + account_id + ", deleted=" + deleted + ", created_on="
 				+ created_on + ", created_by=" + created_by + ", modified_on=" + modified_on + ", modified_by="
 				+ modified_by + "]";
 	}
