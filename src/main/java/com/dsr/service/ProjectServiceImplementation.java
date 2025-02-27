@@ -1,6 +1,5 @@
 package com.dsr.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +21,8 @@ import com.dsr.entity.Project;
 import com.dsr.repositories.AccountRepository;
 import com.dsr.repositories.ProjectRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class ProjectServiceImplementation implements ProjectService{
@@ -65,8 +64,8 @@ public class ProjectServiceImplementation implements ProjectService{
 		project.setAccount_master(account.get());
 		Optional<Employee> reportingManager = this.employeeRepository.findById(reportingManagerID);
 		project.setReportingManager_master(reportingManager.get());
-		project.setCreated_on(Date.valueOf(LocalDate.now()));
-		project.setModified_on(Date.valueOf(LocalDate.now()));
+		project.setCreated_on(LocalDate.now());
+		project.setModified_on(LocalDate.now());
 		project.setCreated_by(created_by);
 		project.setModified_by(created_by);
 		return MappingMapper.INSTANCE.toProjectDTO(this.projectRepository.save(project));
@@ -103,7 +102,7 @@ public class ProjectServiceImplementation implements ProjectService{
 			project.setReporting_manager(entityManager.getReference(Employee.class,employee.getEmp_id()));
 		}
 		MappingMapper.INSTANCE.updateProject(projectdto,project);
-		project.setModified_on(Date.valueOf(LocalDate.now()));
+		project.setModified_on(LocalDate.now());
 		this.projectRepository.save(project);
 		return project;
 	}

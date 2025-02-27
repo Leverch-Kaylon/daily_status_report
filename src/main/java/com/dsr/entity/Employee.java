@@ -1,18 +1,18 @@
 package com.dsr.entity;
 
 
-import java.sql.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "employee_master")
@@ -48,14 +48,14 @@ public class Employee{
 	private boolean deleted = false;
 
 	@Column(name = "created_on")
-	private Date created_on;
+	private LocalDate created_on;
 
 	@NotBlank
 	@Column(name = "created_by")
 	private String created_by;
 
 	@Column(name = "modified_on")
-	private Date modified_on;
+	private LocalDate modified_on;
 
 	@Column(name = "modified_by")
 	private String modified_by;
@@ -71,7 +71,7 @@ public class Employee{
 	
 
 	public Employee(int emp_id, int emp_psid, String emp_firstname, String emp_email, String emp_role, boolean deleted,
-			Date created_on, String created_by, Date modified_on, String modified_by) {
+			LocalDate created_on, String created_by, LocalDate modified_on, String modified_by) {
 		
 		this.emp_id = emp_id;
 		this.emp_psid = emp_psid;
@@ -146,12 +146,12 @@ public class Employee{
 	}
 
 
-	public Date getCreated_on() {
+	public LocalDate getCreated_on() {
 		return created_on;
 	}
 
 
-	public void setCreated_on(Date created_on) {
+	public void setCreated_on(LocalDate created_on) {
 		this.created_on = created_on;
 	}
 
@@ -166,12 +166,12 @@ public class Employee{
 	}
 
 
-	public Date getModified_on() {
+	public LocalDate getModified_on() {
 		return modified_on;
 	}
 
 
-	public void setModified_on(Date modified_on) {
+	public void setModified_on(LocalDate modified_on) {
 		this.modified_on = modified_on;
 	}
 

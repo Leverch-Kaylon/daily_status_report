@@ -3,18 +3,18 @@ package com.dsr.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @DynamicUpdate
@@ -44,14 +44,14 @@ public class Project {
 	private boolean deleted = false;
 
 	@Column(name = "created_on")
-	private Date created_on;
+	private LocalDate created_on;
 
 	@NotBlank
 	@Column(name = "created_by")
 	private String created_by;
 
 	@Column(name = "modified_on")
-	private Date modified_on;
+	private LocalDate modified_on;
 
 	@Column(name = "modified_by")
 	private String modified_by;
@@ -62,7 +62,7 @@ public class Project {
 	}
 
 	public Project(int project_id, String project_desc, Employee reporting_manager, Account account_id,
-			boolean deleted, Date created_on, String created_by, Date modified_on, String modified_by) {
+			boolean deleted, LocalDate created_on, String created_by, LocalDate modified_on, String modified_by) {
 		this.project_id = project_id;
 		this.project_desc = project_desc;
 		this.reporting_manager = reporting_manager;
@@ -106,11 +106,11 @@ public class Project {
 		this.deleted = deleted;
 	}
 
-	public Date getCreated_on() {
+	public LocalDate getCreated_on() {
 		return created_on;
 	}
 
-	public void setCreated_on(Date created_on) {
+	public void setCreated_on(LocalDate created_on) {
 		this.created_on = created_on;
 	}
 
@@ -122,11 +122,11 @@ public class Project {
 		this.created_by = created_by;
 	}
 
-	public Date getModified_on() {
+	public LocalDate getModified_on() {
 		return modified_on;
 	}
 
-	public void setModified_on(Date modified_on) {
+	public void setModified_on(LocalDate modified_on) {
 		this.modified_on = modified_on;
 	}
 

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.2.RELEASE</version>
+		<version>3.2.0</version>
 
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
@@ -16,8 +16,7 @@
 	<description>status-report</description>
 
 	<properties>
-		<java.version>1.8</java.version>
-		<azure.version>2.3.1</azure.version>
+		<java.version>17</java.version>
 		<apache.plugin.version>3.5.1</apache.plugin.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 
@@ -27,7 +26,9 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.2.0</version> <!-- Use the latest version -->
 		</dependency>
+
 <!--		<dependency>-->
 <!--			<groupId>org.springdoc</groupId>-->
 <!--			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
@@ -87,10 +88,6 @@
 			<version>0.4</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.microsoft.azure</groupId>
-			<artifactId>azure-spring-boot-starter</artifactId>
-		</dependency>
 		 <dependency>
 	    <groupId>com.itextpdf</groupId>
 	    <artifactId>itextpdf</artifactId>
@@ -105,11 +102,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-mail</artifactId>
     	</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>				
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>				-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -133,18 +130,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.microsoft.azure</groupId>
-				<artifactId>azure-spring-boot-bom</artifactId>
-				<version>${azure.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>

@@ -1,6 +1,6 @@
 package com.dsr.repositories;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,16 +19,16 @@ public interface ReportRepository extends JpaRepository<Report, ReportId> {
 	@Query("SELECT rep FROM Report rep WHERE rep.emp_id.emp_id =?1")
 	List<Report> getDSROfSpecificEmployee(int emp_id);
 
-	@Query("SELECT rep FROM Report rep WHERE rep.emp_id.emp_id =?1 AND rep.project_id.project_id =?2 AND rep.submissionDate.submissionDate BETWEEN ?3 AND ?4")
-	List<Report> getDSROfSpecificEmployeeByMonth(int emp_id,int project_id,Date endDate,Date startDate);
+	@Query("SELECT rep FROM Report rep WHERE rep.emp_id.emp_id =:empID AND rep.project_id.project_id =:projID AND rep.submission_date BETWEEN :endDate AND :startDate")
+	List<Report> getDSROfSpecificEmployeeByMonth(@Param("empID") int emp_id,@Param("projID") int project_id,@Param("endDate") LocalDate endDate,@Param("startDate") LocalDate startDate);
 
-	@Query("SELECT rep FROM Report rep WHERE rep.submissionDate =?1")
-	List<Report> generateDSRReport(Date currentDate);
+	@Query("SELECT rep FROM Report rep WHERE rep.submission_date =?1")
+	List<Report> generateDSRReport(LocalDate currentDate);
 
-	@Query("SELECT rep from Report rep where rep.project_id.project_id = ?1 AND rep.submissionDate BETWEEN ?2 AND ?3 order by rep.submissionDate")
-	List<Report> getEmployeesDSRUnderProjects(int project_id, Date startDate, Date endDate);
+	@Query("SELECT rep from Report rep where rep.project_id.project_id = ?1 AND rep.submission_date BETWEEN ?2 AND ?3 order by rep.submission_date")
+	List<Report> getEmployeesDSRUnderProjects(int project_id, LocalDate startDate, LocalDate endDate);
 
-	@Query("SELECT rep from Report rep where rep.project_id.id = ?1 AND rep.submissionDate = ?2 AND rep.emp_id.emp_id = ?3")
-	Optional<Report> existsBySubmissionDate( int projectID, Date date, int employeeID);
+	@Query("SELECT rep from Report rep where rep.project_id.id = ?1 AND rep.submission_date = ?2 AND rep.emp_id.emp_id = ?3")
+	Optional<Report> existsBySubmissionDate( int projectID, LocalDate date, int employeeID);
 
 }

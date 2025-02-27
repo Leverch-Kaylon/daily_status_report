@@ -1,6 +1,5 @@
 package com.dsr.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -78,8 +77,8 @@ public class Manager {
 
 	})
 	@GetMapping("/employees/{project_id}")
-	public ResponseEntity<List<ReportDTO>> getEmployeesDSRUnderProject(@PathVariable int project_id, @RequestParam("startDate") Optional<Date> startDate, @RequestParam("endDate") Optional<Date> endDate) {
-		return new ResponseEntity<>(reportService.getEmployeeDSRUnderProjects(project_id, startDate.orElse(Date.valueOf(LocalDate.now())),endDate.orElse(Date.valueOf(LocalDate.now()))),HttpStatus.OK);
+	public ResponseEntity<List<ReportDTO>> getEmployeesDSRUnderProject(@PathVariable int project_id, @RequestParam("startDate") Optional<LocalDate> startDate, @RequestParam("endDate") Optional<LocalDate> endDate) {
+		return new ResponseEntity<>(reportService.getEmployeeDSRUnderProjects(project_id, startDate.orElse(LocalDate.now()) , endDate.orElse(LocalDate.now())),HttpStatus.OK);
 	}
 
 	//TODO manager add comment to DSR update

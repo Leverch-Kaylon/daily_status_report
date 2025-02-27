@@ -1,7 +1,6 @@
 package com.dsr.controller;
 
 import java.time.LocalDate;
-import java.sql.Date;
 import java.util.*;
 
 
@@ -25,7 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.dsr.entity.Employee;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 //Below CORS was for Angular front end
 @CrossOrigin(origins = "http://localhost:4200")
@@ -51,7 +50,7 @@ public class Admin {
 			@ApiResponse(responseCode = "200", description = "Success", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {@Content(mediaType = "application/json")})})
 	@PostMapping("/account")
-	public ResponseEntity<AccountDto> createAccount( @RequestHeader(name = "created-by") String createdBy,@Valid @RequestBody Account account) {
+	public ResponseEntity<AccountDto> createAccount( @RequestHeader(name = "created-by") String createdBy,@RequestBody Account account) {
 		return new ResponseEntity<AccountDto>(accountService.createAccount(createdBy,account),HttpStatus.OK);
 	}
     @Operation(summary = "Get All Projects Under an Account")
@@ -124,7 +123,7 @@ public class Admin {
 
 	})
 	@PostMapping("/employee")
-	public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody Employee employee, @RequestHeader(name = "created_by") String created_by) {
+	public ResponseEntity<EmployeeDto> addEmployee(@RequestBody Employee employee, @RequestHeader(name = "created_by") String created_by) {
 		return new ResponseEntity<>(employeeService.addEmployee(employee, created_by),HttpStatus.OK);
 	}
 
@@ -162,7 +161,7 @@ public class Admin {
 
 	})
 	@PostMapping("/project")
-	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "accountId", required = true) int accountId, @Valid @RequestBody Project project, @RequestParam(name="reporting_manager",required = true) int reportingManagerID,@RequestHeader(name = "created_by") String created_by) {
+	public ResponseEntity<ProjectDto> createProject(@RequestParam(name = "account_id", required = true) int accountId, @Valid @RequestBody Project project, @RequestParam(name="reporting_manager",required = true) int reportingManagerID,@RequestHeader(name = "created_by") String created_by) {
 		return new ResponseEntity<>(projectService.createProject(accountId, project, reportingManagerID, created_by),HttpStatus.OK);
 	}
 
@@ -195,7 +194,7 @@ public class Admin {
 		 Account acc =  accountService.findAccountOnIDReference(accountID);
 		 Employee employee =  employeeService.findEmployeeOnIDReference(employeeID);
 		 //Populate the entity by searching for account, project and employee
-		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,Date.valueOf(LocalDate.now()),created_by, Date.valueOf(LocalDate.now()),created_by));
+		employeeService.assignEmployeeToProject(new AccountProjectEmployee(acc,employee,proj,false,LocalDate.now(),created_by, LocalDate.now(),created_by));
         return new ResponseEntity<>("Successful",HttpStatus.OK);
 	}
 

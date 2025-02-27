@@ -23,7 +23,6 @@ public interface MappingMapper {
 
     ProjectDto toProjectDTO(Project project);
 
-    @Mapping(target= "modified_by", ignore = true)
     AccountDto toAccountDTO(Account account);
 
     ReportDTO toReportDTO(Report report);

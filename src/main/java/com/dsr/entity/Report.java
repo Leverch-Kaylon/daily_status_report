@@ -2,17 +2,17 @@ package com.dsr.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @DynamicUpdate
@@ -53,21 +53,21 @@ public class Report {
 
 	@Id
 	@Column(name = "submission_date")
-	private Date submissionDate;
+	private LocalDate submission_date;
 
 	public Report() {
 
 	}
 
 	public Report(Account account_id, Project project_id, Employee emp_id, String task_completed, String task_planned,
-			String task_issues, Date submissionDate) {
+			String task_issues, LocalDate submission_date) {
 		this.account_id = account_id;
 		this.project_id = project_id;
 		this.emp_id = emp_id;
 		this.task_completed = task_completed;
 		this.task_planned = task_planned;
 		this.task_issues = task_issues;
-		this.submissionDate = submissionDate;
+		this.submission_date = submission_date;
 	}
 
 	public Account getAccount_id() {
@@ -118,20 +118,20 @@ public class Report {
 		this.task_issues = task_issues;
 	}
 
-	public Date getSubmissionDate() {
+	public LocalDate getSubmissionDate() {
 
-		return submissionDate;
+		return submission_date;
 	}
 
-	public void setSubmissionDate(Date submissionDate) {
-		this.submissionDate = submissionDate;
+	public void setSubmissionDate(LocalDate submission_date) {
+		this.submission_date = submission_date;
 	}
 
 	@Override
 	public String toString() {
 		return "Report [account_id=" + account_id + ", project_id=" + project_id + ", emp_id=" + emp_id
 				+ ", task_completed=" + task_completed + ", task_planned=" + task_planned + ", task_issues="
-				+ task_issues + ", submissionDate=" + submissionDate + "]";
+				+ task_issues + ", submission_date=" + submission_date + "]";
 			}
 
 }

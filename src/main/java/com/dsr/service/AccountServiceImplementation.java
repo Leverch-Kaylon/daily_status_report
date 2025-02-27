@@ -1,6 +1,5 @@
 package com.dsr.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,8 @@ import com.dsr.dtos.AccountDto;
 import com.dsr.entity.Account;
 import com.dsr.repositories.AccountRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class AccountServiceImplementation implements AccountService {
@@ -37,8 +36,8 @@ public class AccountServiceImplementation implements AccountService {
 	@Override
 	public AccountDto createAccount(String createdBy,Account account) {
 		logger.atInfo().log("Service Layer : Creating account");
-		account.setCreatedOn(Date.valueOf(LocalDate.now()));
-		account.setModifiedOn(Date.valueOf(LocalDate.now()));
+		account.setCreatedOn(LocalDate.now());
+		account.setModifiedOn(LocalDate.now());
 		account.setCreatedBy(createdBy);
 		account.setModified_by(createdBy);
 		return MappingMapper.INSTANCE.toAccountDTO(this.accountRepository.save(account));
@@ -49,7 +48,7 @@ public class AccountServiceImplementation implements AccountService {
 	public Account updateAccount(int accountID,AccountDto accountdto) {
 		logger.atInfo().log("Service Layer : Updating account");
 		Account account = accountRepository.findById(accountID).orElseThrow(() -> new DataNotFound("Account with ID: "+accountID+" cannot be found"));
-		account.setModifiedOn(Date.valueOf(LocalDate.now()));
+		account.setModifiedOn(LocalDate.now());
 		MappingMapper.INSTANCE.updateAccount(accountdto,account);
 		this.accountRepository.save(account);
 		return account;

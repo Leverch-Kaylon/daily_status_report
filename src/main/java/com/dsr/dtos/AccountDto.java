@@ -1,10 +1,11 @@
 package com.dsr.dtos;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.time.LocalDate;
 
 public class AccountDto {
 
@@ -21,13 +22,14 @@ public class AccountDto {
         this.modified_by = modified_by;
     }
 
+
     // Account default constructor
     public AccountDto() {
 
     }
 
-    public AccountDto(int account_id, String account_desc, boolean deleted, java.sql.Date created_on, String created_by,
-                   java.sql.Date modified_on, String modified_by) {
+    public AccountDto(int account_id, String account_desc, boolean deleted, LocalDate created_on, String created_by,
+                      LocalDate modified_on, String modified_by) {
         this.account_id = account_id;
         this.account_desc = account_desc;
 

@@ -26,11 +26,12 @@ public class GlobalHandler extends ResponseEntityExceptionHandler {
 
 
 //    COPIED - The below handler, given ResponseEntityExceptionHandler has MethodArgumentNotValidException you cannot define another handler for it, instead have to override from ResponseEntityExceptionHandler to customize
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request)
-    {ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.name(),ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
+    //TODO below use to override method from superclass, now method does not exist post springboot 3 upgrade, investigate
+//    @Override
+//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request)
+//    {ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.name(),ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
+//        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+//    }
 
 
     @ExceptionHandler(HttpClientErrorException.BadRequest.class)

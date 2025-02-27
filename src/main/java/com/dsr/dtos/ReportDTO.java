@@ -2,8 +2,8 @@ package com.dsr.dtos;
 
 import com.dsr.entity.Employee;
 
-import javax.persistence.Column;
-import java.util.Date;
+import jakarta.persistence.Column;
+import java.time.LocalDate;
 
 public class ReportDTO {
     private String task_completed;
@@ -11,7 +11,7 @@ public class ReportDTO {
 
     private String task_issues;
 
-    private Date submissionDate;
+    private LocalDate submissionDate;
 
     private Employee emp_id;
 
@@ -24,11 +24,11 @@ public class ReportDTO {
     }
 
 
-    public Date getSubmissionDate() {
+    public LocalDate getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(Date submissionDate) {
+    public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
     }
 

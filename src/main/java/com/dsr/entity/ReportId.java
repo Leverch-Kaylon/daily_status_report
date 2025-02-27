@@ -1,24 +1,23 @@
 package com.dsr.entity;
 
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 
+@NoArgsConstructor
 public class ReportId implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Date submissionDate;
+	private LocalDate submission_date;
 	private int project_id;
 	private int emp_id;
-	
-	public ReportId() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public ReportId(Date submissionDate, int project_id, int emp_id) {
-		this.submissionDate = submissionDate;
+	public ReportId(LocalDate submission_date, int project_id, int emp_id) {
+		this.submission_date = submission_date;
 		this.project_id = project_id;
 		this.emp_id = emp_id;
 	}
@@ -29,7 +28,7 @@ public class ReportId implements Serializable{
 		int result = 1;
 		result = prime * result + emp_id;
 		result = prime * result + project_id;
-		result = prime * result + ((submissionDate == null) ? 0 : submissionDate.hashCode());
+		result = prime * result + ((submission_date == null) ? 0 : submission_date.hashCode());
 		return result;
 	}
 
@@ -46,10 +45,10 @@ public class ReportId implements Serializable{
 			return false;
 		if (project_id != other.project_id)
 			return false;
-		if (submissionDate == null) {
-			if (other.submissionDate != null)
+		if (submission_date == null) {
+			if (other.submission_date != null)
 				return false;
-		} else if (!submissionDate.equals(other.submissionDate))
+		} else if (!submission_date.equals(other.submission_date))
 			return false;
 		return true;
 	}

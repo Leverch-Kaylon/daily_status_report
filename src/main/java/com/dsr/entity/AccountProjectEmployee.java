@@ -1,16 +1,17 @@
 package com.dsr.entity;
 
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.cglib.core.Local;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "account_project_employee_transactional")
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class AccountProjectEmployee {
 	public AccountProjectEmployee(Account account_id, Employee emp_id,
 								  Project project_id, boolean deleted,
-								  Date createdOn, String createdBy, Date modifiedOn,
+								  LocalDate createdOn, String createdBy, LocalDate modifiedOn,
 								  String modifiedBy) {
 		this.account_id = account_id;
 		this.emp_id = emp_id;
@@ -50,14 +51,14 @@ public class AccountProjectEmployee {
 	private boolean deleted = false;
 
 	@Column(name = "createdOn")
-	private Date createdOn;
+	private LocalDate createdOn;
 
 	@NotBlank
 	@Column(name = "createdBy")
 	private String createdBy;
 
 	@Column(name = "modifiedOn")
-	private Date modifiedOn;
+	private LocalDate modifiedOn;
 
 	@Column(name = "modifiedBy")
 	private String modifiedBy;
@@ -95,11 +96,11 @@ public class AccountProjectEmployee {
 		this.deleted = deleted;
 	}
 
-	public Date getCreatedOn() {
+	public LocalDate getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn) {
+	public void setCreatedOn(LocalDate createdOn) {
 		this.createdOn = createdOn;
 	}
 
@@ -111,11 +112,11 @@ public class AccountProjectEmployee {
 		this.createdBy = createdBy;
 	}
 
-	public Date getModifiedOn() {
+	public LocalDate getModifiedOn() {
 		return modifiedOn;
 	}
 
-	public void setModifiedOn(Date modifiedOn) {
+	public void setModifiedOn(LocalDate modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
 

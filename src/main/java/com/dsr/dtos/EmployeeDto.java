@@ -1,11 +1,12 @@
 package com.dsr.dtos;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+
+import java.time.LocalDate;
 
 public class EmployeeDto {
         private int emp_id;
@@ -19,7 +20,7 @@ public class EmployeeDto {
         }
 
 	public EmployeeDto(int emp_id, int emp_psid, String emp_firstname, String emp_email, String emp_role, boolean deleted,
-        Date created_on, String created_by, Date modified_on, String modified_by) {
+                       LocalDate created_on, String created_by, LocalDate modified_on, String modified_by) {
 
             this.emp_id = emp_id;
             this.emp_psid = emp_psid;

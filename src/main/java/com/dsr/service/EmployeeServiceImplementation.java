@@ -1,6 +1,5 @@
 package com.dsr.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.dsr.dtos.FomerEmployeeDto;
 import com.dsr.repositories.EmployeeRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class EmployeeServiceImplementation implements EmployeeService {
@@ -49,8 +48,8 @@ public class EmployeeServiceImplementation implements EmployeeService {
 	@Override
 	public EmployeeDto addEmployee(Employee employee, String created_by) {
 		logger.atInfo().log("Service Layer : Adding Employee");
-		employee.setCreated_on(Date.valueOf(LocalDate.now()));
-		employee.setModified_on(Date.valueOf(LocalDate.now()));
+		employee.setCreated_on(LocalDate.now());
+		employee.setModified_on(LocalDate.now());
 		employee.setCreated_by(created_by);
 		employee.setModified_by(created_by);
 		return MappingMapper.INSTANCE.toDto(employeeRepository.save(employee));

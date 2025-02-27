@@ -1,6 +1,6 @@
 package com.dsr.service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dsr.dtos.DSRResponse;
@@ -15,7 +15,7 @@ public interface ReportService {
 
 	List<ReportDTO> getDSROfSpecificEmployeeByMonth(int emp_id, int project_id);
 
-	List<ReportDTO> getEmployeeDSRUnderProjects(int project_id, Date startDate, Date endDate);
+	List<ReportDTO> getEmployeeDSRUnderProjects(int project_id, LocalDate startDate, LocalDate endDate);
 
 	public DSRResponse createDSR(Report report, int accountID, int employeeID, int projectID) throws Exception;
 

@@ -2,16 +2,17 @@ package com.dsr.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
 
 @Entity
 @DynamicUpdate
@@ -31,14 +32,14 @@ public class Account {
 	private boolean deleted = false;
 
 	@Column(name = "created_on")
-	private Date created_on;
+	private LocalDate created_on;
 
 	@NotNull(message = "Created By Cannot Be Empty")
 	@Column(name = "created_by")
 	private String created_by;
 
 	@Column(name = "modified_on")
-	private Date modified_on;
+	private LocalDate modified_on;
 
 	@Column(name = "modified_by")
 	private String modified_by;
@@ -48,8 +49,8 @@ public class Account {
 
 	}
 
-	public Account(int account_id, String account_desc, boolean deleted, Date created_on, String created_by,
-			Date modified_on, String modified_by) {
+	public Account(int account_id, String account_desc, boolean deleted, LocalDate created_on, String created_by,
+			LocalDate modified_on, String modified_by) {
 		this.account_id = account_id;
 		this.account_desc = account_desc;
 		this.deleted = deleted;
@@ -91,11 +92,11 @@ public class Account {
 		this.deleted = deleted;
 	}
 
-	public Date getCreatedOn() {
+	public LocalDate getCreatedOn() {
 		return created_on;
 	}
 
-	public void setCreatedOn(Date created_on) {
+	public void setCreatedOn(LocalDate created_on) {
 		this.created_on = created_on;
 	}
 
@@ -107,11 +108,11 @@ public class Account {
 		this.created_by = created_by;
 	}
 
-	public Date getModifiedOn() {
+	public LocalDate getModifiedOn() {
 		return modified_on;
 	}
 
-	public void setModifiedOn(Date modified_on) {
+	public void setModifiedOn(LocalDate modified_on) {
 		this.modified_on = modified_on;
 	}
 

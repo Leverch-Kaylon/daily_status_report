@@ -2,7 +2,7 @@ package com.dsr.dtos;
 
 import com.dsr.entity.Account;
 import com.dsr.entity.Employee;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class ProjectDto {
 
@@ -18,7 +18,7 @@ public class ProjectDto {
 	}
 
 	public ProjectDto(int project_id, String project_desc, Employee reporting_manager, Account account_id,
-				   boolean deleted, java.sql.Date created_on, String created_by, java.sql.Date modified_on, String modified_by) {
+					  boolean deleted, LocalDate created_on, String created_by, LocalDate modified_on, String modified_by) {
 		this.project_id = project_id;
 		this.project_desc = project_desc;
 

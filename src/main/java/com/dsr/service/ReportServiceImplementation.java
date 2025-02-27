@@ -1,7 +1,6 @@
 package com.dsr.service;
 
 import java.io.FileOutputStream;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,7 @@ public class ReportServiceImplementation implements ReportService {
 	public List<ReportDTO> getDSROfSpecificEmployeeByMonth(int emp_id, int project_id) {
 		logger.atInfo().log("Report Service Layer : Get Reports within current month for user "+emp_id+" for projectID "+project_id);
 		List<Report> report = reportRepository.getDSROfSpecificEmployeeByMonth(emp_id, project_id,
-				Date.valueOf(LocalDate.now().minusMonths(1)), Date.valueOf(LocalDate.now()));
+				LocalDate.now().minusMonths(1), LocalDate.now());
 		List<ReportDTO> reportResponse = new ArrayList<>();
 		report.forEach(r -> reportResponse.add(MappingMapper.INSTANCE.toReportDTO(r)));
 		return reportResponse;
@@ -65,7 +64,7 @@ public class ReportServiceImplementation implements ReportService {
 	// Method that allows an employee to submit their daily report.
 	@Override
 	public DSRResponse createDSR(Report report, int accountID, int employeeID, int projectID) throws Exception {
-		report.setSubmissionDate(Date.valueOf(LocalDate.now()));
+		report.setSubmissionDate(LocalDate.now());
 		Optional<Report> exists = reportRepository.existsBySubmissionDate(projectID,report.getSubmissionDate(),employeeID);
 
 		if (exists.isPresent()) {
@@ -152,7 +151,7 @@ public class ReportServiceImplementation implements ReportService {
 //	}
 
 	@Override
-	public List<ReportDTO> getEmployeeDSRUnderProjects(int project_id, Date startDate, Date endDate) {
+	public List<ReportDTO> getEmployeeDSRUnderProjects(int project_id, LocalDate startDate, LocalDate endDate) {
 
 		List<Report> reports = reportRepository.getEmployeesDSRUnderProjects(project_id, startDate, endDate);
 		List<ReportDTO> dtoReports = new ArrayList<>();

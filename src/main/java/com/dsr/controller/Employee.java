@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.dsr.dtos.DSRResponse;
 import com.dsr.entity.Report;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
